@@ -8,11 +8,10 @@
 
 int main(void)
 {
-	int x;
+
 	while (1)
 	{
-
-
+		LED_ON(PORTA,PIN0);
 	}
 	return 0;
 }

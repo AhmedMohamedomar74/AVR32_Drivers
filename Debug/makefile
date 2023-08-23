@@ -35,6 +35,9 @@ endif
 LSS += \
 AVR32_Drivers.lss \
 
+FLASH_IMAGE += \
+AVR32_Drivers.hex \
+
 SIZEDUMMY += \
 sizedummy \
 
@@ -56,6 +59,12 @@ AVR32_Drivers.lss: AVR32_Drivers.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
+AVR32_Drivers.hex: AVR32_Drivers.elf
+	@echo 'Create Flash image (ihex format)'
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex AVR32_Drivers.elf  "AVR32_Drivers.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 sizedummy: AVR32_Drivers.elf
 	@echo 'Invoking: Print Size'
 	-avr-size --format=avr --mcu=atmega32 AVR32_Drivers.elf
@@ -64,10 +73,10 @@ sizedummy: AVR32_Drivers.elf
 
 # Other Targets
 clean:
-	-$(RM) $(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) AVR32_Drivers.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) AVR32_Drivers.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(SIZEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents
 .SECONDARY:

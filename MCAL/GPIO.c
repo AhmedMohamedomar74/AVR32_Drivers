@@ -76,7 +76,7 @@ void GPIO_setPinValue(u8 portId, u8 PinId, u8 value)
             case PORTA:
                 printf("%i", value);
                 PORTA_Ptr = PORTA_Ptr & ~(1 << PinId);
-                break;
+                break;      
             case PORTB:
                 PORTB_Ptr = PORTB_Ptr & ~(1 << PinId);
                 break;
