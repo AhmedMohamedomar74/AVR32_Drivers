@@ -11,7 +11,11 @@ int main(void)
 
 	while (1)
 	{
-		LED_ON(PORTA,PIN0);
+		LED_OFF();
+		_delay_ms(1000);
+		Toggel_LED();
+		_delay_ms(1000);
+
 	}
 	return 0;
 }

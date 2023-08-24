@@ -4,5 +4,6 @@
         "led_config.h": "c",
         "leds_config.h": "c",
         "led.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

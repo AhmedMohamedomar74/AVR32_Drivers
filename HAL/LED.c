@@ -1,4 +1,5 @@
 #include "LED.h"
+
 #include <util/delay.h>
 /*
  * LED.c
@@ -7,28 +8,114 @@
  *      Author: ahmedomar
  */
 
-Led_state LED_ON(u8 PORT, u8 PIN)
+Error_state LED_ON()
 {
-    Led_state Local_Led_status = Not_Working;
-    GPIO_setPindDirection(PORT,PIN,Output_direction);
-    GPIO_setPinValue(PORT,PIN,high_value);
-    Local_Led_status = Working;
-    return Local_Led_status;
+    // make local variables for error and pointer
+    Error_state local_error = NULL_POINTER;
+    // if the devloper in hal layer need to change the index
+    LED_T *LED_PTR = &Arr_Leds[1];
+    // first check the null pointer
+    if (NULL == LED_PTR)
+    {
+        local_error = NULL_POINTER;
+    }
+    else
+    {
+        // check led is valid
+        for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
+        {
+            if (LoopIteratorOne == LED_PTR->LED_ID)
+            {
+                local_error = LED_VALID;
+                break;
+            }
+            else
+            {
+                local_error = LED_NOT_VALID;
+            }
+        }
+        if (LED_VALID == local_error)
+        {
+            local_error = Not_Working;
+            LED_PTR->PIN_VAL = high_value;
+            GPIO_setPindDirection(LED_PTR->PORT, LED_PTR->PIN, Output_direction);
+            GPIO_setPinValue(LED_PTR->PORT, LED_PTR->PIN, LED_PTR->PIN_VAL);
+            local_error = Working;
+        }
+        else
+        {
+        }
+    }
+
+    return local_error;
 }
 
-Led_state LED_OFF(u8 PORT, u8 PIN)
+Error_state LED_OFF()
 {
-    Led_state Local_Led_status = Working;
-    GPIO_setPindDirection(PORT,PIN,Output_direction);
-    GPIO_setPinValue(PORT,PIN,low_value);
-    Local_Led_status = Not_Working;
-    return Local_Led_status;
+    // make local variables for error and pointer
+    Error_state local_error = NULL_POINTER;
+    // if the devloper in hal layer need to change the index
+    LED_T *LED_PTR = &Arr_Leds[1];
+    // first check the null pointer
+    if (NULL == LED_PTR)
+    {
+        local_error = NULL_POINTER;
+    }
+    else
+    {
+        // check led is valid
+        for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
+        {
+            if (LoopIteratorOne == LED_PTR->LED_ID)
+            {
+                local_error = LED_VALID;
+                break;
+            }
+            else
+            {
+                local_error = LED_NOT_VALID;
+            }
+        }
+        if (LED_VALID == local_error)
+        {
+            local_error = Working;
+            LED_PTR->PIN_VAL = low_value;
+            GPIO_setPindDirection(LED_PTR->PORT, LED_PTR->PIN, Output_direction);
+            GPIO_setPinValue(LED_PTR->PORT, LED_PTR->PIN, LED_PTR->PIN_VAL);
+            local_error = Not_Working;
+        }
+        else
+        {
+        }
+    }
+
+    return local_error;
 }
 
-void Toggel_LED(u8 PORT, u8 PIN)
+Error_state Toggel_LED()
 {
-    LED_ON(PORT,PIN);
-    _delay_ms(1000);
-    LED_OFF(PORT,PIN);
-    _delay_ms(1000);
+	// make local variables for error and pointer
+    Error_state local_error = NULL_POINTER;
+    // if the devloper in hal layer need to change the index
+    LED_T *LED_PTR = &Arr_Leds[1];
+    // first check the null pointer
+    if (NULL == LED_PTR)
+    {
+        local_error = NULL_POINTER;
+    }
+    else
+    {
+        if (high_value == LED_PTR->PIN_VAL)
+        {
+            local_error = LED_OFF();
+        }
+        else if (low_value == LED_PTR->PIN_VAL)
+        {
+            local_error = LED_ON();
+        }
+        
+    }
+    
+
+    return local_error;
 }

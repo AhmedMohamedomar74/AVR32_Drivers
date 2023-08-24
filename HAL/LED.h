@@ -9,9 +9,12 @@
 #define LED_H_
 
 #include "LED_Config.h"
+#include <avr/delay.h>
 
+Error_state LED_ON();
+Error_state LED_OFF();
+Error_state Toggel_LED();
 
-Led_state LED_ON (u8 PORT,u8 PIN);
-Led_state LED_OFF (u8 PORT,u8 PIN);
-void Toggel_LED (u8 PORT,u8 PIN);
+extern Error_state local_error;
+
 #endif /* LED_H_ */
