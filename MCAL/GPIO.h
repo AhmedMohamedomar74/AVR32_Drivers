@@ -2,7 +2,7 @@
 #define _GPIO_H
 // Includes
 #include "MCAL_REGs.h"
-#include <stdio.h>
+
 // defines
 //@ref ports
 #define PORTA 0
@@ -27,12 +27,17 @@
 //@ref pin state
 #define state_low 0
 #define state_high 1
+//@ref port dicrection 
+#define Input_Port_direction 0
+#define Out_Port_direction 1
+//@ref port value 
+#define Low_Port_value 0
+#define High_Port_value 1
 // API
-void GPIO_setPortValue(u8 portId, u8 value);
-void GPIO_setPinValue(u8 portId, u8 PinId, u8 value);
-void GPIO_setPortDirection(u8 portId, u8 PortDirectionValue);
-void GPIO_setPindDirection(u8 portId, u8 PinId, u8 PintDirectionValue);
-u8 GPIO_getPortValue(u8 portId);
-u8 GPIO_PinValue(u8 portId, u8 PinId);
-
+Error_state GPIO_setPortValue(u8 portId, u8 value);
+Error_state GPIO_setPinValue(u8 portId, u8 PinId, u8 value);
+Error_state GPIO_setPortDirection(u8 portId, u8 PortDirectionValue);
+Error_state GPIO_setPindDirection(u8 portId, u8 PinId, u8 PintDirectionValue);
+Error_state GPIO_getPortValue(u8 portId,u8 * val);//return the input value by pointers
+Error_state GPIO_getPIN (u8 portId,u8 PinId,u8 * val);//return the input value by pointer
 #endif

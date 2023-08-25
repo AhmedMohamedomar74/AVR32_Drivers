@@ -7,7 +7,7 @@
 
 #ifndef LED_CONFIG_H_
 #define LED_CONFIG_H_
-#include "../MCAL/GPIO.h"
+#include "../../MCAL/GPIO.h"
 
 #define LED_PORT0 PORTA
 #define LED_PORT1 PORTB
@@ -23,15 +23,6 @@
 #define LED_PIN6 PIN6
 #define LED_PIN7 PIN7
 
-typedef enum 
-{
-    NULL_POINTER,
-    LED_NOT_VALID,
-    LED_VALID,
-    Not_Working,
-    Working,
-}Error_state;
-
 typedef struct LED_Config
 {
     u8 LED_ID;
@@ -40,6 +31,7 @@ typedef struct LED_Config
     u8 PIN_VAL;
 }LED_T;
 
-extern LED_T Arr_Leds[];
 extern u8 NumberOfLeds;
+extern LED_T Arr_Leds[];
+
 #endif /* LED_CONFIG_H_ */

@@ -1,6 +1,5 @@
 #include "LED.h"
 
-#include <util/delay.h>
 /*
  * LED.c
  *
@@ -63,7 +62,7 @@ Error_state LED_OFF()
     }
     else
     {
-        // check led is valid
+        // check led is valid                           //length
         for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
         {
             if (LoopIteratorOne == LED_PTR->LED_ID)

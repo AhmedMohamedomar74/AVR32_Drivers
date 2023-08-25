@@ -3,7 +3,9 @@
         "gpio.h": "c",
         "led_config.h": "c",
         "leds_config.h": "c",
-        "led.h": "c"
+        "led.h": "c",
+        "seven_seg_config.h": "c",
+        "seven_seg.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

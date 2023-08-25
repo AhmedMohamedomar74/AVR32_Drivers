@@ -4,10 +4,10 @@ typedef enum
 {
     led0,
     led1,
-    ledgnth,
+    legnth,
 }LED_ID_t;
-u8 NumberOfLeds = ledgnth;
+u8 NumberOfLeds = legnth;
 // please enter the the specs of leds
-LED_T Arr_Leds[ledgnth] = {
+LED_T Arr_Leds[legnth] = {
     {led0, LED_PORT0, LED_PIN0},
     {led1, LED_PORT1, LED_PIN1}};

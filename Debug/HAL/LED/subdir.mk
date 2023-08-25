@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../HAL/LED/LED.c 
+../HAL/LED/LED.c \
+../HAL/LED/LED_Config.c 
 
 OBJS += \
-./HAL/LED/LED.o 
+./HAL/LED/LED.o \
+./HAL/LED/LED_Config.o 
 
 C_DEPS += \
-./HAL/LED/LED.d 
+./HAL/LED/LED.d \
+./HAL/LED/LED_Config.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
