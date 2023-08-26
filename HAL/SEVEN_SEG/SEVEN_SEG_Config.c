@@ -15,6 +15,6 @@ typedef enum {
 }seven_segment_id_t;
 
 SEVEN_SEG_t seven_segments_arr [] = {
-    {seven_segment0,PORTA,comman_cathode},{seven_segment1,PORTB,comman_anode}};
+    {seven_segment0,PORTA,comman_cathode,{PORTB,PIN0,low_value}},{seven_segment1,PORTA,comman_cathode,{PORTB,PIN1,low_value}}};
 u8 legnth= number_of_seven_segments;
 

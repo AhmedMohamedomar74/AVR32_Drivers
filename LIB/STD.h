@@ -10,6 +10,7 @@ typedef  float float_32;
 typedef double float_6f;
 #include "stdio.h"
 #include <stdlib.h>
+#include <avr/delay.h>
 typedef enum
 {
     Valid_Port,
@@ -26,6 +27,7 @@ typedef enum
     Can_not_assign_to_SS,
     SS_valid,
     SS_not_valid,
+    can_not_assign_to_multiplix,
 }Error_state;
 
 
