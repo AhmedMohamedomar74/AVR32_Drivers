@@ -8,7 +8,8 @@ typedef unsigned long int u32;
 typedef signed long int s32;
 typedef  float float_32;
 typedef double float_6f;
-
+#include "stdio.h"
+#include <stdlib.h>
 typedef enum
 {
     Valid_Port,
@@ -21,7 +22,10 @@ typedef enum
 	LED_VALID,
 	LED_NOT_VALID,
 	Working,
-	Not_Working
+	Not_Working,
+    Can_not_assign_to_SS,
+    SS_valid,
+    SS_not_valid,
 }Error_state;
 
 

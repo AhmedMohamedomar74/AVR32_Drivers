@@ -3,15 +3,15 @@ AVR32_Drivers.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000b60  00000000  00000000  00000094  2**1
+  0 .text         00000c70  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000a  00800060  00000b60  00000bf4  2**0
+  1 .data         00000024  00800060  00000c70  00000d04  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000001  0080006a  0080006a  00000bfe  2**0
+  2 .bss          00000001  00800084  00800084  00000d28  2**0
                   ALLOC
-  3 .stab         00001164  00000000  00000000  00000c00  2**2
+  3 .stab         00001a34  00000000  00000000  00000d28  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000977  00000000  00000000  00001d64  2**0
+  4 .stabstr      000013ab  00000000  00000000  0000275c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -51,8 +51,8 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 e6       	ldi	r30, 0x60	; 96
-  68:	fb e0       	ldi	r31, 0x0B	; 11
+  66:	e0 e7       	ldi	r30, 0x70	; 112
+  68:	fc e0       	ldi	r31, 0x0C	; 12
   6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
 
 0000006c <.do_copy_data_loop>:
@@ -60,13 +60,13 @@ Disassembly of section .text:
   6e:	0d 92       	st	X+, r0
 
 00000070 <.do_copy_data_start>:
-  70:	aa 36       	cpi	r26, 0x6A	; 106
+  70:	a4 38       	cpi	r26, 0x84	; 132
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
 
 00000076 <__do_clear_bss>:
   76:	10 e0       	ldi	r17, 0x00	; 0
-  78:	aa e6       	ldi	r26, 0x6A	; 106
+  78:	a4 e8       	ldi	r26, 0x84	; 132
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -74,20 +74,16 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	ab 36       	cpi	r26, 0x6B	; 107
+  80:	a5 38       	cpi	r26, 0x85	; 133
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 a7 05 	call	0xb4e	; 0xb4e <main>
-  8a:	0c 94 ae 05 	jmp	0xb5c	; 0xb5c <_exit>
+  86:	0e 94 2d 06 	call	0xc5a	; 0xc5a <main>
+  8a:	0c 94 36 06 	jmp	0xc6c	; 0xc6c <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 00000092 <GPIO_setPortValue>:
-#include "GPIO.h"
-
-Error_state GPIO_setPortValue(u8 portId, u8 value)
-{
   92:	df 93       	push	r29
   94:	cf 93       	push	r28
   96:	00 d0       	rcall	.+0      	; 0x98 <GPIO_setPortValue+0x6>
@@ -97,10 +93,8 @@ Error_state GPIO_setPortValue(u8 portId, u8 value)
   9e:	de b7       	in	r29, 0x3e	; 62
   a0:	8a 83       	std	Y+2, r24	; 0x02
   a2:	6b 83       	std	Y+3, r22	; 0x03
-    Error_state local_err = Unvalid_Port;
   a4:	81 e0       	ldi	r24, 0x01	; 1
   a6:	89 83       	std	Y+1, r24	; 0x01
-    if ((PORTA != portId) && (PORTB != portId) && (PORTC != portId) && (PORTD != portId))
   a8:	8a 81       	ldd	r24, Y+2	; 0x02
   aa:	88 23       	and	r24, r24
   ac:	61 f0       	breq	.+24     	; 0xc6 <GPIO_setPortValue+0x34>
@@ -113,17 +107,10 @@ Error_state GPIO_setPortValue(u8 portId, u8 value)
   ba:	8a 81       	ldd	r24, Y+2	; 0x02
   bc:	83 30       	cpi	r24, 0x03	; 3
   be:	19 f0       	breq	.+6      	; 0xc6 <GPIO_setPortValue+0x34>
-    {
-        local_err = Unvalid_Port;
   c0:	81 e0       	ldi	r24, 0x01	; 1
   c2:	89 83       	std	Y+1, r24	; 0x01
   c4:	33 c0       	rjmp	.+102    	; 0x12c <GPIO_setPortValue+0x9a>
-    }
-    else
-    {
-        local_err = Valid_Port;
   c6:	19 82       	std	Y+1, r1	; 0x01
-        switch (portId)
   c8:	8a 81       	ldd	r24, Y+2	; 0x02
   ca:	28 2f       	mov	r18, r24
   cc:	30 e0       	ldi	r19, 0x00	; 0
@@ -155,45 +142,26 @@ Error_state GPIO_setPortValue(u8 portId, u8 value)
  100:	91 05       	cpc	r25, r1
  102:	81 f0       	breq	.+32     	; 0x124 <GPIO_setPortValue+0x92>
  104:	13 c0       	rjmp	.+38     	; 0x12c <GPIO_setPortValue+0x9a>
-        {
-        case PORTA:
-            PORTA_Ptr = value;
  106:	eb e3       	ldi	r30, 0x3B	; 59
  108:	f0 e0       	ldi	r31, 0x00	; 0
  10a:	8b 81       	ldd	r24, Y+3	; 0x03
  10c:	80 83       	st	Z, r24
  10e:	0e c0       	rjmp	.+28     	; 0x12c <GPIO_setPortValue+0x9a>
-            break;
-        case PORTB:
-            PORTB_Ptr = value;
  110:	e8 e3       	ldi	r30, 0x38	; 56
  112:	f0 e0       	ldi	r31, 0x00	; 0
  114:	8b 81       	ldd	r24, Y+3	; 0x03
  116:	80 83       	st	Z, r24
  118:	09 c0       	rjmp	.+18     	; 0x12c <GPIO_setPortValue+0x9a>
-            break;
-        case PORTC:
-            PORTC_Ptr = value;
  11a:	e5 e3       	ldi	r30, 0x35	; 53
  11c:	f0 e0       	ldi	r31, 0x00	; 0
  11e:	8b 81       	ldd	r24, Y+3	; 0x03
  120:	80 83       	st	Z, r24
  122:	04 c0       	rjmp	.+8      	; 0x12c <GPIO_setPortValue+0x9a>
-            break;
-        case PORTD:
-            PORTD_Ptr = value;
  124:	e2 e3       	ldi	r30, 0x32	; 50
  126:	f0 e0       	ldi	r31, 0x00	; 0
  128:	8b 81       	ldd	r24, Y+3	; 0x03
  12a:	80 83       	st	Z, r24
-            break;
-        default:
-            break;
-        }
-    }
-    return local_err;
  12c:	89 81       	ldd	r24, Y+1	; 0x01
-}
  12e:	0f 90       	pop	r0
  130:	0f 90       	pop	r0
  132:	0f 90       	pop	r0
@@ -204,6 +172,9 @@ Error_state GPIO_setPortValue(u8 portId, u8 value)
  13c:	08 95       	ret
 
 0000013e <GPIO_setPinValue>:
+    }
+    return local_err;
+}
 
 Error_state GPIO_setPinValue(u8 portId, u8 PinId, u8 value)
 {
@@ -1559,361 +1530,559 @@ Error_state GPIO_getPIN(u8 portId, u8 PinId, u8 *val)
  9ae:	df 91       	pop	r29
  9b0:	08 95       	ret
 
-000009b2 <LED_ON>:
+000009b2 <Seven_Segment>:
+ *      Author: ahmedomar
+ */
+#include "SEVEN_SEG.h"
+
+Error_state Seven_Segment(u8 numebr)
+{
+ 9b2:	df 93       	push	r29
+ 9b4:	cf 93       	push	r28
+ 9b6:	00 d0       	rcall	.+0      	; 0x9b8 <Seven_Segment+0x6>
+ 9b8:	00 d0       	rcall	.+0      	; 0x9ba <Seven_Segment+0x8>
+ 9ba:	0f 92       	push	r0
+ 9bc:	cd b7       	in	r28, 0x3d	; 61
+ 9be:	de b7       	in	r29, 0x3e	; 62
+ 9c0:	8d 83       	std	Y+5, r24	; 0x05
+    Error_state local_err = Unvalid_Port;
+ 9c2:	81 e0       	ldi	r24, 0x01	; 1
+ 9c4:	8c 83       	std	Y+4, r24	; 0x04
+    SEVEN_SEG_t *local_ptr = &seven_segments_arr[1];
+ 9c6:	83 e6       	ldi	r24, 0x63	; 99
+ 9c8:	90 e0       	ldi	r25, 0x00	; 0
+ 9ca:	9b 83       	std	Y+3, r25	; 0x03
+ 9cc:	8a 83       	std	Y+2, r24	; 0x02
+    if (local_ptr == NULL)
+ 9ce:	8a 81       	ldd	r24, Y+2	; 0x02
+ 9d0:	9b 81       	ldd	r25, Y+3	; 0x03
+ 9d2:	00 97       	sbiw	r24, 0x00	; 0
+ 9d4:	19 f4       	brne	.+6      	; 0x9dc <Seven_Segment+0x2a>
+    {
+        local_err = NULL_POINTER;
+ 9d6:	86 e0       	ldi	r24, 0x06	; 6
+ 9d8:	8c 83       	std	Y+4, r24	; 0x04
+ 9da:	68 c0       	rjmp	.+208    	; 0xaac <Seven_Segment+0xfa>
+    }
+    else
+    {
+        if (numebr > 0x09)
+ 9dc:	8d 81       	ldd	r24, Y+5	; 0x05
+ 9de:	8a 30       	cpi	r24, 0x0A	; 10
+ 9e0:	18 f0       	brcs	.+6      	; 0x9e8 <Seven_Segment+0x36>
+        {
+            local_err = Can_not_assign_to_SS;
+ 9e2:	8b e0       	ldi	r24, 0x0B	; 11
+ 9e4:	8c 83       	std	Y+4, r24	; 0x04
+ 9e6:	62 c0       	rjmp	.+196    	; 0xaac <Seven_Segment+0xfa>
+        }
+        else
+        {
+            if ((PORTA != local_ptr->PORT) && (PORTB != local_ptr->PORT) && (PORTC != local_ptr->PORT) && (PORTD != local_ptr->PORT))
+ 9e8:	ea 81       	ldd	r30, Y+2	; 0x02
+ 9ea:	fb 81       	ldd	r31, Y+3	; 0x03
+ 9ec:	81 81       	ldd	r24, Z+1	; 0x01
+ 9ee:	88 23       	and	r24, r24
+ 9f0:	91 f0       	breq	.+36     	; 0xa16 <Seven_Segment+0x64>
+ 9f2:	ea 81       	ldd	r30, Y+2	; 0x02
+ 9f4:	fb 81       	ldd	r31, Y+3	; 0x03
+ 9f6:	81 81       	ldd	r24, Z+1	; 0x01
+ 9f8:	81 30       	cpi	r24, 0x01	; 1
+ 9fa:	69 f0       	breq	.+26     	; 0xa16 <Seven_Segment+0x64>
+ 9fc:	ea 81       	ldd	r30, Y+2	; 0x02
+ 9fe:	fb 81       	ldd	r31, Y+3	; 0x03
+ a00:	81 81       	ldd	r24, Z+1	; 0x01
+ a02:	82 30       	cpi	r24, 0x02	; 2
+ a04:	41 f0       	breq	.+16     	; 0xa16 <Seven_Segment+0x64>
+ a06:	ea 81       	ldd	r30, Y+2	; 0x02
+ a08:	fb 81       	ldd	r31, Y+3	; 0x03
+ a0a:	81 81       	ldd	r24, Z+1	; 0x01
+ a0c:	83 30       	cpi	r24, 0x03	; 3
+ a0e:	19 f0       	breq	.+6      	; 0xa16 <Seven_Segment+0x64>
+            {
+                local_err = Unvalid_Port;
+ a10:	81 e0       	ldi	r24, 0x01	; 1
+ a12:	8c 83       	std	Y+4, r24	; 0x04
+ a14:	4b c0       	rjmp	.+150    	; 0xaac <Seven_Segment+0xfa>
+            }
+            else
+            {
+                for (u8 LoopIteratorOne = 0; LoopIteratorOne < legnth; LoopIteratorOne++)
+ a16:	19 82       	std	Y+1, r1	; 0x01
+ a18:	0e c0       	rjmp	.+28     	; 0xa36 <Seven_Segment+0x84>
+                {
+                    if (LoopIteratorOne == local_ptr->SEVEN_SEG_ID)
+ a1a:	ea 81       	ldd	r30, Y+2	; 0x02
+ a1c:	fb 81       	ldd	r31, Y+3	; 0x03
+ a1e:	90 81       	ld	r25, Z
+ a20:	89 81       	ldd	r24, Y+1	; 0x01
+ a22:	98 17       	cp	r25, r24
+ a24:	19 f4       	brne	.+6      	; 0xa2c <Seven_Segment+0x7a>
+                    {
+                        local_err = SS_valid;
+ a26:	8c e0       	ldi	r24, 0x0C	; 12
+ a28:	8c 83       	std	Y+4, r24	; 0x04
+ a2a:	0a c0       	rjmp	.+20     	; 0xa40 <Seven_Segment+0x8e>
+                        break;
+                    }
+                    else
+                    {
+                        local_err = SS_not_valid;
+ a2c:	8d e0       	ldi	r24, 0x0D	; 13
+ a2e:	8c 83       	std	Y+4, r24	; 0x04
+            {
+                local_err = Unvalid_Port;
+            }
+            else
+            {
+                for (u8 LoopIteratorOne = 0; LoopIteratorOne < legnth; LoopIteratorOne++)
+ a30:	89 81       	ldd	r24, Y+1	; 0x01
+ a32:	8f 5f       	subi	r24, 0xFF	; 255
+ a34:	89 83       	std	Y+1, r24	; 0x01
+ a36:	90 91 66 00 	lds	r25, 0x0066
+ a3a:	89 81       	ldd	r24, Y+1	; 0x01
+ a3c:	89 17       	cp	r24, r25
+ a3e:	68 f3       	brcs	.-38     	; 0xa1a <Seven_Segment+0x68>
+                    else
+                    {
+                        local_err = SS_not_valid;
+                    }
+                }
+                if (SS_valid == local_err)
+ a40:	8c 81       	ldd	r24, Y+4	; 0x04
+ a42:	8c 30       	cpi	r24, 0x0C	; 12
+ a44:	99 f5       	brne	.+102    	; 0xaac <Seven_Segment+0xfa>
+                {
+                    if (comman_anode == local_ptr->SEVEN_SEG_type)
+ a46:	ea 81       	ldd	r30, Y+2	; 0x02
+ a48:	fb 81       	ldd	r31, Y+3	; 0x03
+ a4a:	82 81       	ldd	r24, Z+2	; 0x02
+ a4c:	81 30       	cpi	r24, 0x01	; 1
+ a4e:	a9 f4       	brne	.+42     	; 0xa7a <Seven_Segment+0xc8>
+                    {
+                        GPIO_setPortDirection(local_ptr->PORT, 0xff);
+ a50:	ea 81       	ldd	r30, Y+2	; 0x02
+ a52:	fb 81       	ldd	r31, Y+3	; 0x03
+ a54:	81 81       	ldd	r24, Z+1	; 0x01
+ a56:	6f ef       	ldi	r22, 0xFF	; 255
+ a58:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <GPIO_setPortDirection>
+                        GPIO_setPortValue(local_ptr->PORT, CA_SevenSegmentValues[numebr]);
+ a5c:	ea 81       	ldd	r30, Y+2	; 0x02
+ a5e:	fb 81       	ldd	r31, Y+3	; 0x03
+ a60:	21 81       	ldd	r18, Z+1	; 0x01
+ a62:	8d 81       	ldd	r24, Y+5	; 0x05
+ a64:	88 2f       	mov	r24, r24
+ a66:	90 e0       	ldi	r25, 0x00	; 0
+ a68:	fc 01       	movw	r30, r24
+ a6a:	e0 59       	subi	r30, 0x90	; 144
+ a6c:	ff 4f       	sbci	r31, 0xFF	; 255
+ a6e:	90 81       	ld	r25, Z
+ a70:	82 2f       	mov	r24, r18
+ a72:	69 2f       	mov	r22, r25
+ a74:	0e 94 49 00 	call	0x92	; 0x92 <GPIO_setPortValue>
+ a78:	19 c0       	rjmp	.+50     	; 0xaac <Seven_Segment+0xfa>
+                    }
+                    else if (comman_cathode == local_ptr->SEVEN_SEG_type)
+ a7a:	ea 81       	ldd	r30, Y+2	; 0x02
+ a7c:	fb 81       	ldd	r31, Y+3	; 0x03
+ a7e:	82 81       	ldd	r24, Z+2	; 0x02
+ a80:	88 23       	and	r24, r24
+ a82:	a1 f4       	brne	.+40     	; 0xaac <Seven_Segment+0xfa>
+                    {
+                        GPIO_setPortDirection(local_ptr->PORT, 0xff);
+ a84:	ea 81       	ldd	r30, Y+2	; 0x02
+ a86:	fb 81       	ldd	r31, Y+3	; 0x03
+ a88:	81 81       	ldd	r24, Z+1	; 0x01
+ a8a:	6f ef       	ldi	r22, 0xFF	; 255
+ a8c:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <GPIO_setPortDirection>
+                        GPIO_setPortValue(local_ptr->PORT, CC_SevenSegmentValues[numebr]);
+ a90:	ea 81       	ldd	r30, Y+2	; 0x02
+ a92:	fb 81       	ldd	r31, Y+3	; 0x03
+ a94:	21 81       	ldd	r18, Z+1	; 0x01
+ a96:	8d 81       	ldd	r24, Y+5	; 0x05
+ a98:	88 2f       	mov	r24, r24
+ a9a:	90 e0       	ldi	r25, 0x00	; 0
+ a9c:	fc 01       	movw	r30, r24
+ a9e:	e6 58       	subi	r30, 0x86	; 134
+ aa0:	ff 4f       	sbci	r31, 0xFF	; 255
+ aa2:	90 81       	ld	r25, Z
+ aa4:	82 2f       	mov	r24, r18
+ aa6:	69 2f       	mov	r22, r25
+ aa8:	0e 94 49 00 	call	0x92	; 0x92 <GPIO_setPortValue>
+                }
+            }
+        }
+    }
+
+    return local_err;
+ aac:	8c 81       	ldd	r24, Y+4	; 0x04
+}
+ aae:	0f 90       	pop	r0
+ ab0:	0f 90       	pop	r0
+ ab2:	0f 90       	pop	r0
+ ab4:	0f 90       	pop	r0
+ ab6:	0f 90       	pop	r0
+ ab8:	cf 91       	pop	r28
+ aba:	df 91       	pop	r29
+ abc:	08 95       	ret
+
+00000abe <LED_ON>:
  *  Created on: Aug 22, 2023
  *      Author: ahmedomar
  */
 
 Error_state LED_ON()
 {
- 9b2:	df 93       	push	r29
- 9b4:	cf 93       	push	r28
- 9b6:	00 d0       	rcall	.+0      	; 0x9b8 <LED_ON+0x6>
- 9b8:	00 d0       	rcall	.+0      	; 0x9ba <LED_ON+0x8>
- 9ba:	cd b7       	in	r28, 0x3d	; 61
- 9bc:	de b7       	in	r29, 0x3e	; 62
+ abe:	df 93       	push	r29
+ ac0:	cf 93       	push	r28
+ ac2:	00 d0       	rcall	.+0      	; 0xac4 <LED_ON+0x6>
+ ac4:	00 d0       	rcall	.+0      	; 0xac6 <LED_ON+0x8>
+ ac6:	cd b7       	in	r28, 0x3d	; 61
+ ac8:	de b7       	in	r29, 0x3e	; 62
     // make local variables for error and pointer
     Error_state local_error = NULL_POINTER;
- 9be:	86 e0       	ldi	r24, 0x06	; 6
- 9c0:	8c 83       	std	Y+4, r24	; 0x04
+ aca:	86 e0       	ldi	r24, 0x06	; 6
+ acc:	8c 83       	std	Y+4, r24	; 0x04
     // if the devloper in hal layer need to change the index
     LED_T *LED_PTR = &Arr_Leds[1];
- 9c2:	85 e6       	ldi	r24, 0x65	; 101
- 9c4:	90 e0       	ldi	r25, 0x00	; 0
- 9c6:	9b 83       	std	Y+3, r25	; 0x03
- 9c8:	8a 83       	std	Y+2, r24	; 0x02
+ ace:	8c e6       	ldi	r24, 0x6C	; 108
+ ad0:	90 e0       	ldi	r25, 0x00	; 0
+ ad2:	9b 83       	std	Y+3, r25	; 0x03
+ ad4:	8a 83       	std	Y+2, r24	; 0x02
     // first check the null pointer
     if (NULL == LED_PTR)
- 9ca:	8a 81       	ldd	r24, Y+2	; 0x02
- 9cc:	9b 81       	ldd	r25, Y+3	; 0x03
- 9ce:	00 97       	sbiw	r24, 0x00	; 0
- 9d0:	19 f4       	brne	.+6      	; 0x9d8 <LED_ON+0x26>
+ ad6:	8a 81       	ldd	r24, Y+2	; 0x02
+ ad8:	9b 81       	ldd	r25, Y+3	; 0x03
+ ada:	00 97       	sbiw	r24, 0x00	; 0
+ adc:	19 f4       	brne	.+6      	; 0xae4 <LED_ON+0x26>
     {
         local_error = NULL_POINTER;
- 9d2:	86 e0       	ldi	r24, 0x06	; 6
- 9d4:	8c 83       	std	Y+4, r24	; 0x04
- 9d6:	37 c0       	rjmp	.+110    	; 0xa46 <LED_ON+0x94>
+ ade:	86 e0       	ldi	r24, 0x06	; 6
+ ae0:	8c 83       	std	Y+4, r24	; 0x04
+ ae2:	37 c0       	rjmp	.+110    	; 0xb52 <LED_ON+0x94>
     }
     else
     {
         // check led is valid
         for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
- 9d8:	19 82       	std	Y+1, r1	; 0x01
- 9da:	0e c0       	rjmp	.+28     	; 0x9f8 <LED_ON+0x46>
+ ae4:	19 82       	std	Y+1, r1	; 0x01
+ ae6:	0e c0       	rjmp	.+28     	; 0xb04 <LED_ON+0x46>
         {
             if (LoopIteratorOne == LED_PTR->LED_ID)
- 9dc:	ea 81       	ldd	r30, Y+2	; 0x02
- 9de:	fb 81       	ldd	r31, Y+3	; 0x03
- 9e0:	90 81       	ld	r25, Z
- 9e2:	89 81       	ldd	r24, Y+1	; 0x01
- 9e4:	98 17       	cp	r25, r24
- 9e6:	19 f4       	brne	.+6      	; 0x9ee <LED_ON+0x3c>
+ ae8:	ea 81       	ldd	r30, Y+2	; 0x02
+ aea:	fb 81       	ldd	r31, Y+3	; 0x03
+ aec:	90 81       	ld	r25, Z
+ aee:	89 81       	ldd	r24, Y+1	; 0x01
+ af0:	98 17       	cp	r25, r24
+ af2:	19 f4       	brne	.+6      	; 0xafa <LED_ON+0x3c>
             {
                 local_error = LED_VALID;
- 9e8:	87 e0       	ldi	r24, 0x07	; 7
- 9ea:	8c 83       	std	Y+4, r24	; 0x04
- 9ec:	0a c0       	rjmp	.+20     	; 0xa02 <LED_ON+0x50>
+ af4:	87 e0       	ldi	r24, 0x07	; 7
+ af6:	8c 83       	std	Y+4, r24	; 0x04
+ af8:	0a c0       	rjmp	.+20     	; 0xb0e <LED_ON+0x50>
                 break;
             }
             else
             {
                 local_error = LED_NOT_VALID;
- 9ee:	88 e0       	ldi	r24, 0x08	; 8
- 9f0:	8c 83       	std	Y+4, r24	; 0x04
+ afa:	88 e0       	ldi	r24, 0x08	; 8
+ afc:	8c 83       	std	Y+4, r24	; 0x04
         local_error = NULL_POINTER;
     }
     else
     {
         // check led is valid
         for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
- 9f2:	89 81       	ldd	r24, Y+1	; 0x01
- 9f4:	8f 5f       	subi	r24, 0xFF	; 255
- 9f6:	89 83       	std	Y+1, r24	; 0x01
- 9f8:	90 91 60 00 	lds	r25, 0x0060
- 9fc:	89 81       	ldd	r24, Y+1	; 0x01
- 9fe:	89 17       	cp	r24, r25
- a00:	68 f3       	brcs	.-38     	; 0x9dc <LED_ON+0x2a>
+ afe:	89 81       	ldd	r24, Y+1	; 0x01
+ b00:	8f 5f       	subi	r24, 0xFF	; 255
+ b02:	89 83       	std	Y+1, r24	; 0x01
+ b04:	90 91 67 00 	lds	r25, 0x0067
+ b08:	89 81       	ldd	r24, Y+1	; 0x01
+ b0a:	89 17       	cp	r24, r25
+ b0c:	68 f3       	brcs	.-38     	; 0xae8 <LED_ON+0x2a>
             else
             {
                 local_error = LED_NOT_VALID;
             }
         }
         if (LED_VALID == local_error)
- a02:	8c 81       	ldd	r24, Y+4	; 0x04
- a04:	87 30       	cpi	r24, 0x07	; 7
- a06:	f9 f4       	brne	.+62     	; 0xa46 <LED_ON+0x94>
+ b0e:	8c 81       	ldd	r24, Y+4	; 0x04
+ b10:	87 30       	cpi	r24, 0x07	; 7
+ b12:	f9 f4       	brne	.+62     	; 0xb52 <LED_ON+0x94>
         {
             local_error = Not_Working;
- a08:	8a e0       	ldi	r24, 0x0A	; 10
- a0a:	8c 83       	std	Y+4, r24	; 0x04
+ b14:	8a e0       	ldi	r24, 0x0A	; 10
+ b16:	8c 83       	std	Y+4, r24	; 0x04
             LED_PTR->PIN_VAL = high_value;
- a0c:	ea 81       	ldd	r30, Y+2	; 0x02
- a0e:	fb 81       	ldd	r31, Y+3	; 0x03
- a10:	81 e0       	ldi	r24, 0x01	; 1
- a12:	83 83       	std	Z+3, r24	; 0x03
+ b18:	ea 81       	ldd	r30, Y+2	; 0x02
+ b1a:	fb 81       	ldd	r31, Y+3	; 0x03
+ b1c:	81 e0       	ldi	r24, 0x01	; 1
+ b1e:	83 83       	std	Z+3, r24	; 0x03
             GPIO_setPindDirection(LED_PTR->PORT, LED_PTR->PIN, Output_direction);
- a14:	ea 81       	ldd	r30, Y+2	; 0x02
- a16:	fb 81       	ldd	r31, Y+3	; 0x03
- a18:	81 81       	ldd	r24, Z+1	; 0x01
- a1a:	ea 81       	ldd	r30, Y+2	; 0x02
- a1c:	fb 81       	ldd	r31, Y+3	; 0x03
- a1e:	92 81       	ldd	r25, Z+2	; 0x02
- a20:	69 2f       	mov	r22, r25
- a22:	41 e0       	ldi	r20, 0x01	; 1
- a24:	0e 94 68 02 	call	0x4d0	; 0x4d0 <GPIO_setPindDirection>
+ b20:	ea 81       	ldd	r30, Y+2	; 0x02
+ b22:	fb 81       	ldd	r31, Y+3	; 0x03
+ b24:	81 81       	ldd	r24, Z+1	; 0x01
+ b26:	ea 81       	ldd	r30, Y+2	; 0x02
+ b28:	fb 81       	ldd	r31, Y+3	; 0x03
+ b2a:	92 81       	ldd	r25, Z+2	; 0x02
+ b2c:	69 2f       	mov	r22, r25
+ b2e:	41 e0       	ldi	r20, 0x01	; 1
+ b30:	0e 94 68 02 	call	0x4d0	; 0x4d0 <GPIO_setPindDirection>
             GPIO_setPinValue(LED_PTR->PORT, LED_PTR->PIN, LED_PTR->PIN_VAL);
- a28:	ea 81       	ldd	r30, Y+2	; 0x02
- a2a:	fb 81       	ldd	r31, Y+3	; 0x03
- a2c:	81 81       	ldd	r24, Z+1	; 0x01
- a2e:	ea 81       	ldd	r30, Y+2	; 0x02
- a30:	fb 81       	ldd	r31, Y+3	; 0x03
- a32:	22 81       	ldd	r18, Z+2	; 0x02
- a34:	ea 81       	ldd	r30, Y+2	; 0x02
- a36:	fb 81       	ldd	r31, Y+3	; 0x03
- a38:	93 81       	ldd	r25, Z+3	; 0x03
- a3a:	62 2f       	mov	r22, r18
- a3c:	49 2f       	mov	r20, r25
- a3e:	0e 94 9f 00 	call	0x13e	; 0x13e <GPIO_setPinValue>
+ b34:	ea 81       	ldd	r30, Y+2	; 0x02
+ b36:	fb 81       	ldd	r31, Y+3	; 0x03
+ b38:	81 81       	ldd	r24, Z+1	; 0x01
+ b3a:	ea 81       	ldd	r30, Y+2	; 0x02
+ b3c:	fb 81       	ldd	r31, Y+3	; 0x03
+ b3e:	22 81       	ldd	r18, Z+2	; 0x02
+ b40:	ea 81       	ldd	r30, Y+2	; 0x02
+ b42:	fb 81       	ldd	r31, Y+3	; 0x03
+ b44:	93 81       	ldd	r25, Z+3	; 0x03
+ b46:	62 2f       	mov	r22, r18
+ b48:	49 2f       	mov	r20, r25
+ b4a:	0e 94 9f 00 	call	0x13e	; 0x13e <GPIO_setPinValue>
             local_error = Working;
- a42:	89 e0       	ldi	r24, 0x09	; 9
- a44:	8c 83       	std	Y+4, r24	; 0x04
+ b4e:	89 e0       	ldi	r24, 0x09	; 9
+ b50:	8c 83       	std	Y+4, r24	; 0x04
         else
         {
         }
     }
 
     return local_error;
- a46:	8c 81       	ldd	r24, Y+4	; 0x04
+ b52:	8c 81       	ldd	r24, Y+4	; 0x04
 }
- a48:	0f 90       	pop	r0
- a4a:	0f 90       	pop	r0
- a4c:	0f 90       	pop	r0
- a4e:	0f 90       	pop	r0
- a50:	cf 91       	pop	r28
- a52:	df 91       	pop	r29
- a54:	08 95       	ret
+ b54:	0f 90       	pop	r0
+ b56:	0f 90       	pop	r0
+ b58:	0f 90       	pop	r0
+ b5a:	0f 90       	pop	r0
+ b5c:	cf 91       	pop	r28
+ b5e:	df 91       	pop	r29
+ b60:	08 95       	ret
 
-00000a56 <LED_OFF>:
+00000b62 <LED_OFF>:
 
 Error_state LED_OFF()
 {
- a56:	df 93       	push	r29
- a58:	cf 93       	push	r28
- a5a:	00 d0       	rcall	.+0      	; 0xa5c <LED_OFF+0x6>
- a5c:	00 d0       	rcall	.+0      	; 0xa5e <LED_OFF+0x8>
- a5e:	cd b7       	in	r28, 0x3d	; 61
- a60:	de b7       	in	r29, 0x3e	; 62
+ b62:	df 93       	push	r29
+ b64:	cf 93       	push	r28
+ b66:	00 d0       	rcall	.+0      	; 0xb68 <LED_OFF+0x6>
+ b68:	00 d0       	rcall	.+0      	; 0xb6a <LED_OFF+0x8>
+ b6a:	cd b7       	in	r28, 0x3d	; 61
+ b6c:	de b7       	in	r29, 0x3e	; 62
     // make local variables for error and pointer
     Error_state local_error = NULL_POINTER;
- a62:	86 e0       	ldi	r24, 0x06	; 6
- a64:	8c 83       	std	Y+4, r24	; 0x04
+ b6e:	86 e0       	ldi	r24, 0x06	; 6
+ b70:	8c 83       	std	Y+4, r24	; 0x04
     // if the devloper in hal layer need to change the index
     LED_T *LED_PTR = &Arr_Leds[1];
- a66:	85 e6       	ldi	r24, 0x65	; 101
- a68:	90 e0       	ldi	r25, 0x00	; 0
- a6a:	9b 83       	std	Y+3, r25	; 0x03
- a6c:	8a 83       	std	Y+2, r24	; 0x02
+ b72:	8c e6       	ldi	r24, 0x6C	; 108
+ b74:	90 e0       	ldi	r25, 0x00	; 0
+ b76:	9b 83       	std	Y+3, r25	; 0x03
+ b78:	8a 83       	std	Y+2, r24	; 0x02
     // first check the null pointer
     if (NULL == LED_PTR)
- a6e:	8a 81       	ldd	r24, Y+2	; 0x02
- a70:	9b 81       	ldd	r25, Y+3	; 0x03
- a72:	00 97       	sbiw	r24, 0x00	; 0
- a74:	19 f4       	brne	.+6      	; 0xa7c <LED_OFF+0x26>
+ b7a:	8a 81       	ldd	r24, Y+2	; 0x02
+ b7c:	9b 81       	ldd	r25, Y+3	; 0x03
+ b7e:	00 97       	sbiw	r24, 0x00	; 0
+ b80:	19 f4       	brne	.+6      	; 0xb88 <LED_OFF+0x26>
     {
         local_error = NULL_POINTER;
- a76:	86 e0       	ldi	r24, 0x06	; 6
- a78:	8c 83       	std	Y+4, r24	; 0x04
- a7a:	36 c0       	rjmp	.+108    	; 0xae8 <LED_OFF+0x92>
+ b82:	86 e0       	ldi	r24, 0x06	; 6
+ b84:	8c 83       	std	Y+4, r24	; 0x04
+ b86:	36 c0       	rjmp	.+108    	; 0xbf4 <LED_OFF+0x92>
     }
     else
     {
         // check led is valid                           //length
         for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
- a7c:	19 82       	std	Y+1, r1	; 0x01
- a7e:	0e c0       	rjmp	.+28     	; 0xa9c <LED_OFF+0x46>
+ b88:	19 82       	std	Y+1, r1	; 0x01
+ b8a:	0e c0       	rjmp	.+28     	; 0xba8 <LED_OFF+0x46>
         {
             if (LoopIteratorOne == LED_PTR->LED_ID)
- a80:	ea 81       	ldd	r30, Y+2	; 0x02
- a82:	fb 81       	ldd	r31, Y+3	; 0x03
- a84:	90 81       	ld	r25, Z
- a86:	89 81       	ldd	r24, Y+1	; 0x01
- a88:	98 17       	cp	r25, r24
- a8a:	19 f4       	brne	.+6      	; 0xa92 <LED_OFF+0x3c>
+ b8c:	ea 81       	ldd	r30, Y+2	; 0x02
+ b8e:	fb 81       	ldd	r31, Y+3	; 0x03
+ b90:	90 81       	ld	r25, Z
+ b92:	89 81       	ldd	r24, Y+1	; 0x01
+ b94:	98 17       	cp	r25, r24
+ b96:	19 f4       	brne	.+6      	; 0xb9e <LED_OFF+0x3c>
             {
                 local_error = LED_VALID;
- a8c:	87 e0       	ldi	r24, 0x07	; 7
- a8e:	8c 83       	std	Y+4, r24	; 0x04
- a90:	0a c0       	rjmp	.+20     	; 0xaa6 <LED_OFF+0x50>
+ b98:	87 e0       	ldi	r24, 0x07	; 7
+ b9a:	8c 83       	std	Y+4, r24	; 0x04
+ b9c:	0a c0       	rjmp	.+20     	; 0xbb2 <LED_OFF+0x50>
                 break;
             }
             else
             {
                 local_error = LED_NOT_VALID;
- a92:	88 e0       	ldi	r24, 0x08	; 8
- a94:	8c 83       	std	Y+4, r24	; 0x04
+ b9e:	88 e0       	ldi	r24, 0x08	; 8
+ ba0:	8c 83       	std	Y+4, r24	; 0x04
         local_error = NULL_POINTER;
     }
     else
     {
         // check led is valid                           //length
         for (u8 LoopIteratorOne = 0; LoopIteratorOne < NumberOfLeds; LoopIteratorOne++)
- a96:	89 81       	ldd	r24, Y+1	; 0x01
- a98:	8f 5f       	subi	r24, 0xFF	; 255
- a9a:	89 83       	std	Y+1, r24	; 0x01
- a9c:	90 91 60 00 	lds	r25, 0x0060
- aa0:	89 81       	ldd	r24, Y+1	; 0x01
- aa2:	89 17       	cp	r24, r25
- aa4:	68 f3       	brcs	.-38     	; 0xa80 <LED_OFF+0x2a>
+ ba2:	89 81       	ldd	r24, Y+1	; 0x01
+ ba4:	8f 5f       	subi	r24, 0xFF	; 255
+ ba6:	89 83       	std	Y+1, r24	; 0x01
+ ba8:	90 91 67 00 	lds	r25, 0x0067
+ bac:	89 81       	ldd	r24, Y+1	; 0x01
+ bae:	89 17       	cp	r24, r25
+ bb0:	68 f3       	brcs	.-38     	; 0xb8c <LED_OFF+0x2a>
             else
             {
                 local_error = LED_NOT_VALID;
             }
         }
         if (LED_VALID == local_error)
- aa6:	8c 81       	ldd	r24, Y+4	; 0x04
- aa8:	87 30       	cpi	r24, 0x07	; 7
- aaa:	f1 f4       	brne	.+60     	; 0xae8 <LED_OFF+0x92>
+ bb2:	8c 81       	ldd	r24, Y+4	; 0x04
+ bb4:	87 30       	cpi	r24, 0x07	; 7
+ bb6:	f1 f4       	brne	.+60     	; 0xbf4 <LED_OFF+0x92>
         {
             local_error = Working;
- aac:	89 e0       	ldi	r24, 0x09	; 9
- aae:	8c 83       	std	Y+4, r24	; 0x04
+ bb8:	89 e0       	ldi	r24, 0x09	; 9
+ bba:	8c 83       	std	Y+4, r24	; 0x04
             LED_PTR->PIN_VAL = low_value;
- ab0:	ea 81       	ldd	r30, Y+2	; 0x02
- ab2:	fb 81       	ldd	r31, Y+3	; 0x03
- ab4:	13 82       	std	Z+3, r1	; 0x03
+ bbc:	ea 81       	ldd	r30, Y+2	; 0x02
+ bbe:	fb 81       	ldd	r31, Y+3	; 0x03
+ bc0:	13 82       	std	Z+3, r1	; 0x03
             GPIO_setPindDirection(LED_PTR->PORT, LED_PTR->PIN, Output_direction);
- ab6:	ea 81       	ldd	r30, Y+2	; 0x02
- ab8:	fb 81       	ldd	r31, Y+3	; 0x03
- aba:	81 81       	ldd	r24, Z+1	; 0x01
- abc:	ea 81       	ldd	r30, Y+2	; 0x02
- abe:	fb 81       	ldd	r31, Y+3	; 0x03
- ac0:	92 81       	ldd	r25, Z+2	; 0x02
- ac2:	69 2f       	mov	r22, r25
- ac4:	41 e0       	ldi	r20, 0x01	; 1
- ac6:	0e 94 68 02 	call	0x4d0	; 0x4d0 <GPIO_setPindDirection>
+ bc2:	ea 81       	ldd	r30, Y+2	; 0x02
+ bc4:	fb 81       	ldd	r31, Y+3	; 0x03
+ bc6:	81 81       	ldd	r24, Z+1	; 0x01
+ bc8:	ea 81       	ldd	r30, Y+2	; 0x02
+ bca:	fb 81       	ldd	r31, Y+3	; 0x03
+ bcc:	92 81       	ldd	r25, Z+2	; 0x02
+ bce:	69 2f       	mov	r22, r25
+ bd0:	41 e0       	ldi	r20, 0x01	; 1
+ bd2:	0e 94 68 02 	call	0x4d0	; 0x4d0 <GPIO_setPindDirection>
             GPIO_setPinValue(LED_PTR->PORT, LED_PTR->PIN, LED_PTR->PIN_VAL);
- aca:	ea 81       	ldd	r30, Y+2	; 0x02
- acc:	fb 81       	ldd	r31, Y+3	; 0x03
- ace:	81 81       	ldd	r24, Z+1	; 0x01
- ad0:	ea 81       	ldd	r30, Y+2	; 0x02
- ad2:	fb 81       	ldd	r31, Y+3	; 0x03
- ad4:	22 81       	ldd	r18, Z+2	; 0x02
- ad6:	ea 81       	ldd	r30, Y+2	; 0x02
- ad8:	fb 81       	ldd	r31, Y+3	; 0x03
- ada:	93 81       	ldd	r25, Z+3	; 0x03
- adc:	62 2f       	mov	r22, r18
- ade:	49 2f       	mov	r20, r25
- ae0:	0e 94 9f 00 	call	0x13e	; 0x13e <GPIO_setPinValue>
+ bd6:	ea 81       	ldd	r30, Y+2	; 0x02
+ bd8:	fb 81       	ldd	r31, Y+3	; 0x03
+ bda:	81 81       	ldd	r24, Z+1	; 0x01
+ bdc:	ea 81       	ldd	r30, Y+2	; 0x02
+ bde:	fb 81       	ldd	r31, Y+3	; 0x03
+ be0:	22 81       	ldd	r18, Z+2	; 0x02
+ be2:	ea 81       	ldd	r30, Y+2	; 0x02
+ be4:	fb 81       	ldd	r31, Y+3	; 0x03
+ be6:	93 81       	ldd	r25, Z+3	; 0x03
+ be8:	62 2f       	mov	r22, r18
+ bea:	49 2f       	mov	r20, r25
+ bec:	0e 94 9f 00 	call	0x13e	; 0x13e <GPIO_setPinValue>
             local_error = Not_Working;
- ae4:	8a e0       	ldi	r24, 0x0A	; 10
- ae6:	8c 83       	std	Y+4, r24	; 0x04
+ bf0:	8a e0       	ldi	r24, 0x0A	; 10
+ bf2:	8c 83       	std	Y+4, r24	; 0x04
         else
         {
         }
     }
 
     return local_error;
- ae8:	8c 81       	ldd	r24, Y+4	; 0x04
+ bf4:	8c 81       	ldd	r24, Y+4	; 0x04
 }
- aea:	0f 90       	pop	r0
- aec:	0f 90       	pop	r0
- aee:	0f 90       	pop	r0
- af0:	0f 90       	pop	r0
- af2:	cf 91       	pop	r28
- af4:	df 91       	pop	r29
- af6:	08 95       	ret
+ bf6:	0f 90       	pop	r0
+ bf8:	0f 90       	pop	r0
+ bfa:	0f 90       	pop	r0
+ bfc:	0f 90       	pop	r0
+ bfe:	cf 91       	pop	r28
+ c00:	df 91       	pop	r29
+ c02:	08 95       	ret
 
-00000af8 <Toggel_LED>:
+00000c04 <Toggel_LED>:
 
 Error_state Toggel_LED()
 {
- af8:	df 93       	push	r29
- afa:	cf 93       	push	r28
- afc:	00 d0       	rcall	.+0      	; 0xafe <Toggel_LED+0x6>
- afe:	0f 92       	push	r0
- b00:	cd b7       	in	r28, 0x3d	; 61
- b02:	de b7       	in	r29, 0x3e	; 62
+ c04:	df 93       	push	r29
+ c06:	cf 93       	push	r28
+ c08:	00 d0       	rcall	.+0      	; 0xc0a <Toggel_LED+0x6>
+ c0a:	0f 92       	push	r0
+ c0c:	cd b7       	in	r28, 0x3d	; 61
+ c0e:	de b7       	in	r29, 0x3e	; 62
 	// make local variables for error and pointer
     Error_state local_error = NULL_POINTER;
- b04:	86 e0       	ldi	r24, 0x06	; 6
- b06:	8b 83       	std	Y+3, r24	; 0x03
+ c10:	86 e0       	ldi	r24, 0x06	; 6
+ c12:	8b 83       	std	Y+3, r24	; 0x03
     // if the devloper in hal layer need to change the index
     LED_T *LED_PTR = &Arr_Leds[1];
- b08:	85 e6       	ldi	r24, 0x65	; 101
- b0a:	90 e0       	ldi	r25, 0x00	; 0
- b0c:	9a 83       	std	Y+2, r25	; 0x02
- b0e:	89 83       	std	Y+1, r24	; 0x01
+ c14:	8c e6       	ldi	r24, 0x6C	; 108
+ c16:	90 e0       	ldi	r25, 0x00	; 0
+ c18:	9a 83       	std	Y+2, r25	; 0x02
+ c1a:	89 83       	std	Y+1, r24	; 0x01
     // first check the null pointer
     if (NULL == LED_PTR)
- b10:	89 81       	ldd	r24, Y+1	; 0x01
- b12:	9a 81       	ldd	r25, Y+2	; 0x02
- b14:	00 97       	sbiw	r24, 0x00	; 0
- b16:	19 f4       	brne	.+6      	; 0xb1e <Toggel_LED+0x26>
+ c1c:	89 81       	ldd	r24, Y+1	; 0x01
+ c1e:	9a 81       	ldd	r25, Y+2	; 0x02
+ c20:	00 97       	sbiw	r24, 0x00	; 0
+ c22:	19 f4       	brne	.+6      	; 0xc2a <Toggel_LED+0x26>
     {
         local_error = NULL_POINTER;
- b18:	86 e0       	ldi	r24, 0x06	; 6
- b1a:	8b 83       	std	Y+3, r24	; 0x03
- b1c:	11 c0       	rjmp	.+34     	; 0xb40 <Toggel_LED+0x48>
+ c24:	86 e0       	ldi	r24, 0x06	; 6
+ c26:	8b 83       	std	Y+3, r24	; 0x03
+ c28:	11 c0       	rjmp	.+34     	; 0xc4c <Toggel_LED+0x48>
     }
     else
     {
         if (high_value == LED_PTR->PIN_VAL)
- b1e:	e9 81       	ldd	r30, Y+1	; 0x01
- b20:	fa 81       	ldd	r31, Y+2	; 0x02
- b22:	83 81       	ldd	r24, Z+3	; 0x03
- b24:	81 30       	cpi	r24, 0x01	; 1
- b26:	21 f4       	brne	.+8      	; 0xb30 <Toggel_LED+0x38>
+ c2a:	e9 81       	ldd	r30, Y+1	; 0x01
+ c2c:	fa 81       	ldd	r31, Y+2	; 0x02
+ c2e:	83 81       	ldd	r24, Z+3	; 0x03
+ c30:	81 30       	cpi	r24, 0x01	; 1
+ c32:	21 f4       	brne	.+8      	; 0xc3c <Toggel_LED+0x38>
         {
             local_error = LED_OFF();
- b28:	0e 94 2b 05 	call	0xa56	; 0xa56 <LED_OFF>
- b2c:	8b 83       	std	Y+3, r24	; 0x03
- b2e:	08 c0       	rjmp	.+16     	; 0xb40 <Toggel_LED+0x48>
+ c34:	0e 94 b1 05 	call	0xb62	; 0xb62 <LED_OFF>
+ c38:	8b 83       	std	Y+3, r24	; 0x03
+ c3a:	08 c0       	rjmp	.+16     	; 0xc4c <Toggel_LED+0x48>
         }
         else if (low_value == LED_PTR->PIN_VAL)
- b30:	e9 81       	ldd	r30, Y+1	; 0x01
- b32:	fa 81       	ldd	r31, Y+2	; 0x02
- b34:	83 81       	ldd	r24, Z+3	; 0x03
- b36:	88 23       	and	r24, r24
- b38:	19 f4       	brne	.+6      	; 0xb40 <Toggel_LED+0x48>
+ c3c:	e9 81       	ldd	r30, Y+1	; 0x01
+ c3e:	fa 81       	ldd	r31, Y+2	; 0x02
+ c40:	83 81       	ldd	r24, Z+3	; 0x03
+ c42:	88 23       	and	r24, r24
+ c44:	19 f4       	brne	.+6      	; 0xc4c <Toggel_LED+0x48>
         {
             local_error = LED_ON();
- b3a:	0e 94 d9 04 	call	0x9b2	; 0x9b2 <LED_ON>
- b3e:	8b 83       	std	Y+3, r24	; 0x03
+ c46:	0e 94 5f 05 	call	0xabe	; 0xabe <LED_ON>
+ c4a:	8b 83       	std	Y+3, r24	; 0x03
         }
         
     }
     
 
     return local_error;
- b40:	8b 81       	ldd	r24, Y+3	; 0x03
+ c4c:	8b 81       	ldd	r24, Y+3	; 0x03
 }
- b42:	0f 90       	pop	r0
- b44:	0f 90       	pop	r0
- b46:	0f 90       	pop	r0
- b48:	cf 91       	pop	r28
- b4a:	df 91       	pop	r29
- b4c:	08 95       	ret
+ c4e:	0f 90       	pop	r0
+ c50:	0f 90       	pop	r0
+ c52:	0f 90       	pop	r0
+ c54:	cf 91       	pop	r28
+ c56:	df 91       	pop	r29
+ c58:	08 95       	ret
 
-00000b4e <main>:
+00000c5a <main>:
  */
 #include "../HAL/LED/LED.h"
 
 u8 x;
 int main(void)
 {
- b4e:	df 93       	push	r29
- b50:	cf 93       	push	r28
- b52:	cd b7       	in	r28, 0x3d	; 61
- b54:	de b7       	in	r29, 0x3e	; 62
+ c5a:	df 93       	push	r29
+ c5c:	cf 93       	push	r28
+ c5e:	cd b7       	in	r28, 0x3d	; 61
+ c60:	de b7       	in	r29, 0x3e	; 62
 
 	while (1)
 	{
-		LED_ON();
- b56:	0e 94 d9 04 	call	0x9b2	; 0x9b2 <LED_ON>
- b5a:	fd cf       	rjmp	.-6      	; 0xb56 <main+0x8>
+		Seven_Segment(3);
+ c62:	83 e0       	ldi	r24, 0x03	; 3
+ c64:	90 e0       	ldi	r25, 0x00	; 0
+ c66:	0e 94 d9 04 	call	0x9b2	; 0x9b2 <Seven_Segment>
+ c6a:	fb cf       	rjmp	.-10     	; 0xc62 <main+0x8>
 
-00000b5c <_exit>:
- b5c:	f8 94       	cli
+00000c6c <_exit>:
+ c6c:	f8 94       	cli
 
-00000b5e <__stop_program>:
- b5e:	ff cf       	rjmp	.-2      	; 0xb5e <__stop_program>
+00000c6e <__stop_program>:
+ c6e:	ff cf       	rjmp	.-2      	; 0xc6e <__stop_program>

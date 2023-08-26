@@ -1,0 +1,13 @@
+HAL/SEVEN_SEG/SEVEN_SEG_Config.o HAL/SEVEN_SEG/SEVEN_SEG_Config.o:  \
+ ../HAL/SEVEN_SEG/SEVEN_SEG_Config.c ../HAL/SEVEN_SEG/SEVEN_SEG_Config.h \
+  ../HAL/SEVEN_SEG/../../MCAL/GPIO.h \
+  ../HAL/SEVEN_SEG/../../MCAL/MCAL_REGs.h \
+  ../HAL/SEVEN_SEG/../../MCAL/../LIB/STD.h
+
+../HAL/SEVEN_SEG/SEVEN_SEG_Config.h:
+
+../HAL/SEVEN_SEG/../../MCAL/GPIO.h:
+
+../HAL/SEVEN_SEG/../../MCAL/MCAL_REGs.h:
+
+../HAL/SEVEN_SEG/../../MCAL/../LIB/STD.h:

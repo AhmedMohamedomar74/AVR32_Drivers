@@ -12,7 +12,8 @@ int main(void)
 
 	while (1)
 	{
-		LED_ON();
+		Seven_Segment(3);
+		//seven_segment(10);
 	}
 	return 0;
 }

@@ -22,5 +22,6 @@ C_DEPS :=
 SUBDIRS := \
 Application \
 HAL/LED \
+HAL/SEVEN_SEG \
 MCAL \
 

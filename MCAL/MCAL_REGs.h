@@ -8,7 +8,7 @@
 #ifndef MCAL_REGS_H_
 #define MCAL_REGS_H_
 #include "../LIB/STD.h" 
-#define NULL 0
+
 
 #define MAX_PIN 7
 
