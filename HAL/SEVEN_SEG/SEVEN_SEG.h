@@ -37,6 +37,5 @@ const u8 CC_SevenSegmentValues[] = {
     0x6F  // 9
 };
 
-Error_state Seven_Segment(u8 numebr);
-
+Error_state Seven_Segment(u8 numebr, u8 seven_seg_id);
 #endif /* SEVEN_SEG_H_ */
