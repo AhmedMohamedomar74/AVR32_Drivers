@@ -294,3 +294,28 @@ Error_state GPIO_getPIN(u8 portId, u8 PinId, u8 *val)
 
     return local_err;
 }
+
+Error_state GPIO_setPin_PUll_UP(u8 portId, u8 PinId)
+{
+    Error_state local_err = Unvalid_Port;
+    if ((PORTA != portId) && (PORTB != portId) && (PORTC != portId) && (PORTD != portId))
+    {
+        local_err = Unvalid_Port;
+    }
+    else
+    {
+        if (PinId > MAX_PIN)
+        {
+            local_err = Unvalid_pin;
+        }
+        else
+        {
+            local_err = Valid_pin;
+            GPIO_setPindDirection(portId,PinId,Input_direction);
+            GPIO_setPinValue(portId,PinId,high_value);
+        }
+        
+    }
+
+    return local_err;
+}

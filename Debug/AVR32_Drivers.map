@@ -2,8 +2,6 @@ Archive member included because of file (symbol)
 
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
                               ./HAL/SEVEN_SEG/SEVEN_SEG.o (__udivmodqi4)
-d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
-                              ./Application/main.o (__divmodhi4)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o (exit)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
@@ -26,8 +24,6 @@ d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/av
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o) (__fixsfsi)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__thenan_sf)
-d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                              d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__prologue_saves__)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
@@ -38,6 +34,11 @@ d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/av
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o) (__unpack_f)
 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
                               d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o) (__fpcmp_parts_f)
+
+Allocating common symbols
+Common symbol       size              file
+
+x                   0x1               ./Application/main.o
 
 Memory Configuration
 
@@ -58,6 +59,8 @@ LOAD ./HAL/SEVEN_SEG/SEVEN_SEG.o
 LOAD ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
 LOAD ./HAL/LED/LED.o
 LOAD ./HAL/LED/LED_Config.o
+LOAD ./HAL/KEY_PAD/KEY_PAD.o
+LOAD ./HAL/KEY_PAD/KEY_PAD_config.o
 LOAD ./Application/main.o
 LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
@@ -153,7 +156,7 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1d22
+.text           0x00000000     0x1e1a
  *(.vectors)
  .vectors       0x00000000       0x54 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -235,9 +238,10 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .text          0x00000092        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
  .text          0x00000092        0x0 ./HAL/LED/LED.o
  .text          0x00000092        0x0 ./HAL/LED/LED_Config.o
+ .text          0x00000092        0x0 ./HAL/KEY_PAD/KEY_PAD.o
+ .text          0x00000092        0x0 ./HAL/KEY_PAD/KEY_PAD_config.o
  .text          0x00000092        0x0 ./Application/main.o
  .text          0x00000092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
- .text          0x00000092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
  .text          0x00000092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  .text          0x00000092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
  .text          0x00000092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
@@ -257,7 +261,6 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .text          0x00000752       0xa8 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
                 0x00000752                __fixsfsi
  .text          0x000007fa        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
- .text          0x000007fa        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
  .text          0x000007fa        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
  .text          0x000007fa        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
  .text          0x000007fa      0x1aa d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
@@ -286,43 +289,44 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .text.GPIO_getPIN
                 0x00001318      0x14e ./MCAL/GPIO.o
                 0x00001318                GPIO_getPIN
+ .text.GPIO_setPin_PUll_UP
+                0x00001466       0x64 ./MCAL/GPIO.o
+                0x00001466                GPIO_setPin_PUll_UP
  .text.Seven_Segment
-                0x00001466      0x20a ./HAL/SEVEN_SEG/SEVEN_SEG.o
-                0x00001466                Seven_Segment
+                0x000014ca      0x20a ./HAL/SEVEN_SEG/SEVEN_SEG.o
+                0x000014ca                Seven_Segment
  .text.Seven_Segment_Mul
-                0x00001670      0x292 ./HAL/SEVEN_SEG/SEVEN_SEG.o
-                0x00001670                Seven_Segment_Mul
- .text.LED_ON   0x00001902       0xa4 ./HAL/LED/LED.o
-                0x00001902                LED_ON
- .text.LED_OFF  0x000019a6       0xa2 ./HAL/LED/LED.o
-                0x000019a6                LED_OFF
+                0x000016d4      0x292 ./HAL/SEVEN_SEG/SEVEN_SEG.o
+                0x000016d4                Seven_Segment_Mul
+ .text.LED_ON   0x00001966       0xa4 ./HAL/LED/LED.o
+                0x00001966                LED_ON
+ .text.LED_OFF  0x00001a0a       0xa2 ./HAL/LED/LED.o
+                0x00001a0a                LED_OFF
  .text.Toggel_LED
-                0x00001a48       0x56 ./HAL/LED/LED.o
-                0x00001a48                Toggel_LED
- .text.main     0x00001a9e      0x11c ./Application/main.o
-                0x00001a9e                main
- .text.check_prime
-                0x00001bba       0x90 ./Application/main.o
-                0x00001bba                check_prime
- .text.libgcc   0x00001c4a       0x18 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
-                0x00001c4a                __udivmodqi4
- .text.libgcc   0x00001c62       0x26 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
-                0x00001c62                __divmodhi4
-                0x00001c62                _div
- .text.libgcc   0x00001c88        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00001c88        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00001c88        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00001c88       0x28 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                0x00001c88                __udivmodhi4
- .text.libgcc   0x00001cb0       0x38 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x00001cb0                __prologue_saves__
- .text.libgcc   0x00001ce8       0x36 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x00001ce8                __epilogue_restores__
-                0x00001d1e                . = ALIGN (0x2)
+                0x00001aac       0x56 ./HAL/LED/LED.o
+                0x00001aac                Toggel_LED
+ .text.keypad_init
+                0x00001b02       0x8a ./HAL/KEY_PAD/KEY_PAD.o
+                0x00001b02                keypad_init
+ .text.return_char_keypad
+                0x00001b8c      0x1de ./HAL/KEY_PAD/KEY_PAD.o
+                0x00001b8c                return_char_keypad
+ .text.main     0x00001d6a       0x26 ./Application/main.o
+                0x00001d6a                main
+ .text.libgcc   0x00001d90       0x18 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+                0x00001d90                __udivmodqi4
+ .text.libgcc   0x00001da8        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001da8        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001da8        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00001da8       0x38 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00001da8                __prologue_saves__
+ .text.libgcc   0x00001de0       0x36 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00001de0                __epilogue_restores__
+                0x00001e16                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001d1e        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00001d1e                exit
-                0x00001d1e                _exit
+ .fini9         0x00001e16        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00001e16                exit
+                0x00001e16                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -341,11 +345,11 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001d1e        0x4 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001e16        0x4 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001d22                _etext = .
+                0x00001e1a                _etext = .
 
-.data           0x00800060       0x32 load address 0x00001d22
+.data           0x00800060       0x42 load address 0x00001e1a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
@@ -354,9 +358,10 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .data          0x00800060        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
  .data          0x00800060        0x0 ./HAL/LED/LED.o
  .data          0x00800060        0x0 ./HAL/LED/LED_Config.o
+ .data          0x00800060        0x0 ./HAL/KEY_PAD/KEY_PAD.o
+ .data          0x00800060        0x0 ./HAL/KEY_PAD/KEY_PAD_config.o
  .data          0x00800060        0x0 ./Application/main.o
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
- .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
@@ -369,7 +374,6 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .data          0x00800060        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
  .data          0x00800060        0x8 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
                 0x00800060                __thenan_sf
- .data          0x00800068        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
  .data          0x00800068        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
  .data          0x00800068        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
  .data          0x00800068        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
@@ -387,63 +391,68 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
  .data.Arr_Leds
                 0x00800076        0x8 ./HAL/LED/LED_Config.o
                 0x00800076                Arr_Leds
+ .data.keybad_values
+                0x0080007e       0x10 ./HAL/KEY_PAD/KEY_PAD_config.o
+                0x0080007e                keybad_values
  *(.rodata)
  *(.rodata*)
  .rodata.CA_SevenSegmentValues
-                0x0080007e        0xa ./HAL/SEVEN_SEG/SEVEN_SEG.o
-                0x0080007e                CA_SevenSegmentValues
+                0x0080008e        0xa ./HAL/SEVEN_SEG/SEVEN_SEG.o
+                0x0080008e                CA_SevenSegmentValues
  .rodata.CC_SevenSegmentValues
-                0x00800088        0xa ./HAL/SEVEN_SEG/SEVEN_SEG.o
-                0x00800088                CC_SevenSegmentValues
+                0x00800098        0xa ./HAL/SEVEN_SEG/SEVEN_SEG.o
+                0x00800098                CC_SevenSegmentValues
  *(.gnu.linkonce.d*)
-                0x00800092                . = ALIGN (0x2)
-                0x00800092                _edata = .
-                0x00800092                PROVIDE (__data_end, .)
+                0x008000a2                . = ALIGN (0x2)
+                0x008000a2                _edata = .
+                0x008000a2                PROVIDE (__data_end, .)
 
-.bss            0x00800092        0x2
-                0x00800092                PROVIDE (__bss_start, .)
+.bss            0x008000a2        0x3
+                0x008000a2                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
- .bss           0x00800092        0x0 ./MCAL/GPIO.o
- .bss           0x00800092        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG.o
- .bss           0x00800092        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
- .bss           0x00800092        0x0 ./HAL/LED/LED.o
- .bss           0x00800092        0x0 ./HAL/LED/LED_Config.o
- .bss           0x00800092        0x0 ./Application/main.o
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .bss           0x00800092        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x008000a2        0x0 ./MCAL/GPIO.o
+ .bss           0x008000a2        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG.o
+ .bss           0x008000a2        0x0 ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
+ .bss           0x008000a2        0x0 ./HAL/LED/LED.o
+ .bss           0x008000a2        0x0 ./HAL/LED/LED_Config.o
+ .bss           0x008000a2        0x0 ./HAL/KEY_PAD/KEY_PAD.o
+ .bss           0x008000a2        0x0 ./HAL/KEY_PAD/KEY_PAD_config.o
+ .bss           0x008000a2        0x0 ./Application/main.o
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodqi4.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .bss           0x008000a2        0x0 d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.bss*)
  .bss.Glopal_ptr
-                0x00800092        0x2 ./HAL/SEVEN_SEG/SEVEN_SEG.o
-                0x00800092                Glopal_ptr
+                0x008000a2        0x2 ./HAL/SEVEN_SEG/SEVEN_SEG.o
+                0x008000a2                Glopal_ptr
  *(COMMON)
-                0x00800094                PROVIDE (__bss_end, .)
-                0x00001d22                __data_load_start = LOADADDR (.data)
-                0x00001d54                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000a4        0x1 ./Application/main.o
+                0x008000a4                x
+                0x008000a5                PROVIDE (__bss_end, .)
+                0x00001e1a                __data_load_start = LOADADDR (.data)
+                0x00001e5c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800094        0x0
-                0x00800094                PROVIDE (__noinit_start, .)
+.noinit         0x008000a5        0x0
+                0x008000a5                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800094                PROVIDE (__noinit_end, .)
-                0x00800094                _end = .
-                0x00800094                PROVIDE (__heap_start, .)
+                0x008000a5                PROVIDE (__noinit_end, .)
+                0x008000a5                _end = .
+                0x008000a5                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -461,23 +470,27 @@ LOAD d:/iti es course/tools/imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x1ef0
+.stab           0x00000000     0x2508
  *(.stab)
- .stab          0x00000000      0xb7c ./MCAL/GPIO.o
- .stab          0x00000b7c      0x6b4 ./HAL/SEVEN_SEG/SEVEN_SEG.o
+ .stab          0x00000000      0xc48 ./MCAL/GPIO.o
+ .stab          0x00000c48      0x6b4 ./HAL/SEVEN_SEG/SEVEN_SEG.o
                                 0x8dc (size before relaxing)
- .stab          0x00001230      0x18c ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
+ .stab          0x000012fc      0x18c ./HAL/SEVEN_SEG/SEVEN_SEG_Config.o
                                 0x48c (size before relaxing)
- .stab          0x000013bc      0x564 ./HAL/LED/LED.o
+ .stab          0x00001488      0x564 ./HAL/LED/LED.o
                                 0x78c (size before relaxing)
- .stab          0x00001920      0x18c ./HAL/LED/LED_Config.o
+ .stab          0x000019ec      0x18c ./HAL/LED/LED_Config.o
                                 0x474 (size before relaxing)
- .stab          0x00001aac      0x444 ./Application/main.o
-                                0x66c (size before relaxing)
+ .stab          0x00001b78      0x534 ./HAL/KEY_PAD/KEY_PAD.o
+                                0x75c (size before relaxing)
+ .stab          0x000020ac      0x168 ./HAL/KEY_PAD/KEY_PAD_config.o
+                                0x438 (size before relaxing)
+ .stab          0x00002214      0x2f4 ./Application/main.o
+                                0x51c (size before relaxing)
 
-.stabstr        0x00000000     0x16e2
+.stabstr        0x00000000     0x187c
  *(.stabstr)
- .stabstr       0x00000000     0x16e2 ./MCAL/GPIO.o
+ .stabstr       0x00000000     0x187c ./MCAL/GPIO.o
 
 .stab.excl
  *(.stab.excl)

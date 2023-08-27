@@ -40,4 +40,5 @@ Error_state GPIO_setPortDirection(u8 portId, u8 PortDirectionValue);
 Error_state GPIO_setPindDirection(u8 portId, u8 PinId, u8 PintDirectionValue);
 Error_state GPIO_getPortValue(u8 portId,u8 * val);//return the input value by pointers
 Error_state GPIO_getPIN (u8 portId,u8 PinId,u8 * val);//return the input value by pointer
+Error_state GPIO_setPin_PUll_UP (u8 portId, u8 PinId);
 #endif
