@@ -34,6 +34,16 @@
 #define Low_Port_value 0
 #define High_Port_value 1
 // API
+
+typedef struct GPIO
+{
+    u8 port;
+    u8 pin;
+    u8 direction;
+    u8 logic;
+}GPIO_pin_t;
+
+
 Error_state GPIO_setPortValue(u8 portId, u8 value);
 Error_state GPIO_setPinValue(u8 portId, u8 PinId, u8 value);
 Error_state GPIO_setPortDirection(u8 portId, u8 PortDirectionValue);

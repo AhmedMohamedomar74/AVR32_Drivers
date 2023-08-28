@@ -117,12 +117,22 @@ Error_state Seven_Segment_Mul(u8 number)
     else
     {
         local_err = Valid_Port;
-
-    	Seven_Segment(number/10,0);
+        u8 i=0;
+    	while (i<50)
+        {
+            Seven_Segment(number/10,0);
+            i++;
+        }
+        
         _delay_ms(30);
         GPIO_setPinValue(Glopal_ptr->SEVEN_SEG_Enable.port,Glopal_ptr->SEVEN_SEG_Enable.pin,!(Glopal_ptr->SEVEN_SEG_Enable.value));
-        Seven_Segment(number%10,1);
-        _delay_ms(30);
+        i =0;
+        while (i < 150)
+        {
+            Seven_Segment(number%10,1);
+            i++;
+        }
+        i=0;
         GPIO_setPinValue(Glopal_ptr->SEVEN_SEG_Enable.port,Glopal_ptr->SEVEN_SEG_Enable.pin,!(Glopal_ptr->SEVEN_SEG_Enable.value));
 
 

@@ -28,6 +28,9 @@ typedef enum
     SS_valid,
     SS_not_valid,
     can_not_assign_to_multiplix,
+    keypad_valid,
+    keypad_not_valid,
+    unvalid_type_keypad,
 }Error_state;
 
 

@@ -52,18 +52,23 @@ Error_state GPIO_setPinValue(u8 portId, u8 PinId, u8 value)
                 switch (portId)
                 {
                 case PORTA:
+                    GPIO_setPindDirection(portId, PinId, Output_direction);
                     PORTA_Ptr = PORTA_Ptr | (value << PinId);
                     break;
                 case PORTB:
+                    GPIO_setPindDirection(portId, PinId, Output_direction);
                     PORTB_Ptr = PORTB_Ptr | (value << PinId);
                     break;
                 case PORTC:
+                    GPIO_setPindDirection(portId, PinId, Output_direction);
                     PORTC_Ptr = PORTC_Ptr | (value << PinId);
                     break;
                 case PORTD:
+                    GPIO_setPindDirection(portId, PinId, Output_direction);
                     PORTD_Ptr = PORTD_Ptr | (value << PinId);
                     break;
                 default:
+                    GPIO_setPindDirection(portId, PinId, Output_direction);
                     PORTA_Ptr = PORTA_Ptr | 0x00;
                     PORTA_Ptr = PORTA_Ptr | 0x00;
                     PORTA_Ptr = PORTA_Ptr | 0x00;
@@ -311,10 +316,9 @@ Error_state GPIO_setPin_PUll_UP(u8 portId, u8 PinId)
         else
         {
             local_err = Valid_pin;
-            GPIO_setPindDirection(portId,PinId,Input_direction);
-            GPIO_setPinValue(portId,PinId,high_value);
+            GPIO_setPindDirection(portId, PinId, Input_direction);
+            GPIO_setPinValue(portId, PinId, high_value);
         }
-        
     }
 
     return local_err;

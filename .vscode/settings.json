@@ -5,7 +5,9 @@
         "leds_config.h": "c",
         "led.h": "c",
         "seven_seg_config.h": "c",
-        "seven_seg.h": "c"
+        "seven_seg.h": "c",
+        "key_pad.h": "c",
+        "key_pad_config.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
