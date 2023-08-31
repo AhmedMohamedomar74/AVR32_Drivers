@@ -81,6 +81,7 @@ Error_state keypad_init(KEY_PAD_t *keypad_opj)
     Error_state local_err = Unvalid_Port;
     u8 loop_iterator_rows = 0;    // output
     u8 loop_iterator_columns = 0; // input
+    u8 local_val = (keypad_opj->keypad_row_pins[loop_iterator_rows].logic);
     if (NULL == keypad_opj)
     {
         local_err = NULL_POINTER;
@@ -90,6 +91,7 @@ Error_state keypad_init(KEY_PAD_t *keypad_opj)
         for (loop_iterator_rows = 0; loop_iterator_rows < ROW_NUMBERS; loop_iterator_rows++)
         {
             local_err = GPIO_setPinValue((keypad_opj->keypad_row_pins[loop_iterator_rows].port), (keypad_opj->keypad_row_pins[loop_iterator_rows].pin), (keypad_opj->keypad_row_pins[loop_iterator_rows].logic));
+        	//local_err = GPIO_setPinValue(PORTD,PIN0,Out_Port_direction);
         }
         for (loop_iterator_columns = 0; loop_iterator_columns < COL_NUMBERS; loop_iterator_columns++)
         {

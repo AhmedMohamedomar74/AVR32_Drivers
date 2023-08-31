@@ -7,7 +7,10 @@
         "seven_seg_config.h": "c",
         "seven_seg.h": "c",
         "key_pad.h": "c",
-        "key_pad_config.h": "c"
+        "key_pad_config.h": "c",
+        "config.h": "c",
+        "lcd.h": "c",
+        "std.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

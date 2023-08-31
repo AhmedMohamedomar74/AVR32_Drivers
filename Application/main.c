@@ -1,29 +1,20 @@
 /*
  * main.c
  *
- *  Created on: Aug 21, 2023
+ *  Created on: Aug 31, 2023
  *      Author: ahmedomar
  */
-#include "../HAL/LED/LED.h"
-#include "../HAL/SEVEN_SEG/SEVEN_SEG.h"
-#include "../HAL/KEY_PAD/KEY_PAD.h"
+#include "../HAL/LCD/LCD.h"
 
-u8 return_char;
 int main(void)
 {
-
-	keypad_init(&keypad_opj1);
-	while (1)
+	init_lcd();
+	LCD_set_cursor(1,1);
+	while(1)
 	{
-		/*for (u8 i = 0; i < 100; i++)
-		{
-			Seven_Segment_Mul(i);
-			//_delay_ms(1000);
-
-		}*/
-		return_char_keypad(&keypad_opj1,&return_char);
-
-		Seven_Segment_Mul(return_char);
-		//GPIO_setPindDirection(PORTD,PIN0,Out_Port_direction);
+		displayNumberOnLCD(-123456789);
+		LCD_Display_special_char(1,2);
+		_delay_ms(1000);
+		LCD_clear();
 	}
 }

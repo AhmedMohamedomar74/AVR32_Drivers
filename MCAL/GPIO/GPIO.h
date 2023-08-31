@@ -1,7 +1,7 @@
 #ifndef _GPIO_H
 #define _GPIO_H
 // Includes
-#include "MCAL_REGs.h"
+#include "../MCAL_REGs.h"
 
 // defines
 //@ref ports

@@ -22,7 +22,8 @@ C_DEPS :=
 SUBDIRS := \
 Application \
 HAL/KEY_PAD \
+HAL/LCD \
 HAL/LED \
 HAL/SEVEN_SEG \
-MCAL \
+MCAL/GPIO \
 

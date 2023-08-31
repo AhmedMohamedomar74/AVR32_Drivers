@@ -32,6 +32,11 @@
 #define DDRD_BASE 0x31
 #define PIND_BASE 0X30
 
+//Timer 0
+#define TCCR0_BASE  0x53
+#define TCNT0_BASE 0x52
+#define TIFR_BASE  0x58
+
 // POINTER FOR GROUPS
 #define PORTA_Ptr *((volatile u8 *)PORTA_BASE) //(volatile u8*) it used for casting
 #define DDRA_Ptr *((volatile u8 *)DDRA_BASE)   // volatile it used to avoid optmization
@@ -45,4 +50,7 @@
 #define PORTD_Ptr *((volatile u8 *)PORTD_BASE)
 #define DDRD_Ptr *((volatile u8 *)DDRD_BASE)  
 #define PIND_Ptr *((volatile u8 *)PIND_BASE)
+#define TCCR0_Ptr *((volatile u8 *)TCCR0_BASE)
+#define TCNT0_Ptr *((volatile u8 *)TCNT0_BASE)
+#define TIFR_Ptr *((volatile u8 *)TIFR_BASE)
 #endif /* MCAL_REGS_H_ */
