@@ -1,20 +1,27 @@
-/*
- * main.c
- *
- *  Created on: Aug 31, 2023
- *      Author: ahmedomar
- */
-#include "../HAL/LCD/LCD.h"
+#include "slave/slave.h"
+#include "master/master.h"
+#include "../MCAL/GPIO/GPIO.h"
 
-int main(void)
+//slave app 
+/*int main(void)
 {
-	init_lcd();
-	LCD_set_cursor(1,1);
-	while(1)
+	u8 recieved_data;
+	slave_init(SLAVE_ADD);
+	GPIO_setPortDirection(PORTA,Out_Port_direction);
+	while (1)
 	{
-		displayNumberOnLCD(-123456789);
-		LCD_Display_special_char(1,2);
-		_delay_ms(1000);
-		LCD_clear();
+		recieved_data = slave_recieve();
+		GPIO_setPortValue(PORTA,recieved_data);
 	}
+}*/
+// master app
+
+int main()
+{
+	master_init();
+	while (1)
+	{
+		master_send_slave(SLAVE_ADD);
+	}
+	
 }
