@@ -2,13 +2,13 @@
 
 void master_init()
 {
-    INIT_master();
+    MASTER_INIT(MASTER_ADD);
 }
 
 void master_send_slave(u8 slave_add)
 {
-    send_start_condition();
-    M_Write_slave_add(slave_add);
-    M_Write_slave_Data_byte(2);
-    I2C_stop_condition();
+    START_CONDTION_SEND();
+    M_SEND_SLAVE_ADD_W(slave_add);
+    M_SEND_SLAVE_DATA_W(5);
+    STOP_CONDTION_SEND();
 }

@@ -1,25 +1,32 @@
 #include "I2C.h"
 
-void INIT_master(void)
+void MASTER_INIT(u8 SL_ADD)
 {
-    /*set prescaller 0*/
-    TWSR &= ~(1 << TWPS1); // clear bit
-    TWSR &= ~(1 << TWPS0); // clear bit
+    /*Set SCL frequency to 400kHz, with 8Mhz system frequency*/
     TWBR = 2;
-    TWCR |= (1 << TWEA); /*SET ACK*/
-    TWCR |= (1 << TWEN); /*ENABLE TWI*/
+    TWSR |= (0 << TWPS0) | (0 << TWPS1);
+    /*SET MSTER ADDRESS*/
+    if (SL_ADD != NULL)
+    {
+        TWAR = (SL_ADD << 1);
+    }
+    TWCR |= (1 << TWEA) | (1 << TWEN);
 }
 
-void INIT_slave(u8 master_address)
+void SLAVE_INIT(u8 SL_ADD)
 {
-    TWAR = (master_address << 1); /*the address is 7 bit and it starts from second bit in register*/
-    TWCR |= (1 << TWEA);          /*SET ACK*/
-    TWCR |= (1 << TWEN);          /*ENABLE I2C*/
+    /*SET SLAVE ADDRESS*/
+    if (SL_ADD != NULL)
+    {
+        TWAR = (SL_ADD << 1);
+    }
+    TWCR |= (1 << TWEA) | (1 << TWEN) | (1 << TWINT);
 }
 
-I2C_Error_State send_start_condition(void)
+I2C_Error_State START_CONDTION_SEND()
 {
-    I2C_Error_State local_err = I2C_Ok;
+
+    I2C_Error_State local_err = I2C_OK;
     /* Send Start Condition */
     TWCR |= (1 << TWSTA);
     /* Clear Flag */
@@ -27,17 +34,18 @@ I2C_Error_State send_start_condition(void)
     /* Polling on The Flag */
     while (((TWCR >> TWINT) & 1) == 0)
         ;
+    u8 status = TWSR & MODE_CHECK;
     /* Check on ACK */
-    if ((TWSR & 0xF8) != M_SC_ACK)
+    if (status != I2C_START_MODE)
     {
-        local_err = I2C_SC_Error;
+        local_err = START_CONDITION_FAIL;
     }
     return local_err;
 }
 
-I2C_Error_State send_repeated_start_condition(void)
+I2C_Error_State REPEATED_START_CONDTION_SEND()
 {
-    I2C_Error_State local_err = I2C_Ok;
+    I2C_Error_State local_err = I2C_OK;
     /* Send Start Condition */
     TWCR |= (1 << TWSTA);
     /* Clear Flag */
@@ -45,118 +53,181 @@ I2C_Error_State send_repeated_start_condition(void)
     /* Polling on The Flag */
     while (((TWCR >> TWINT) & 1) == 0)
         ;
+    u8 status = TWSR & MODE_CHECK;
     /* Check on ACK */
-    if ((TWSR & 0xF8) != M_RSC_ACK)
+    if (status != I2C_REPEATED_START_MODE)
     {
-        local_err = I2C_RSC_Error;
+        local_err = REPEATED_START_CONDITION_FAIL;
     }
     return local_err;
 }
 
-I2C_Error_State M_Write_slave_add(u8 slave_add)
+I2C_Error_State M_SEND_SLAVE_ADD_W(u8 SL_ADD)
 {
-    I2C_Error_State local_err = I2C_Ok;
-    TWDR = (slave_add << 1);
-    TWDR &= ~(1 << TWD0); // Write operation
-    /*clear start condiotn */
-    TWCR &= ~(1 << TWSTA);
-    /* Clear Flag */
-    TWCR |= (1 << TWINT);
-    /* Polling on The Flag */
-    while (((TWCR >> TWINT) & 1) == 0)
-        ;
-    /* Check on ACK */
-    if ((TWSR & 0xF8) != MT_SLA_W_ACK)
+    I2C_Error_State local_err = I2C_OK;
+    if (SL_ADD != NULL)
     {
-        local_err = I2C_MT_SLA_W_Error;
-    }
-    return local_err;
-}
-
-I2C_Error_State M_Read_slave_add(u8 slave_add)
-{
-    I2C_Error_State local_err = I2C_Ok;
-    TWDR = (slave_add << 1);
-    TWDR &= ~(1 << TWD0); // Write operation
-    /*clear start condiotn */
-    TWCR &= ~(1 << TWSTA);
-    /* Clear Flag */
-    TWCR |= (1 << TWINT);
-    /* Polling on The Flag */
-    while (((TWCR >> TWINT) & 1) == 0)
-        ;
-    /* Check on ACK */
-    if ((TWSR & 0xF8) != M_SLA_R_ACK)
-    {
-        local_err = I2C_MR_SLA_R_Error;
-    }
-    return local_err;
-}
-
-I2C_Error_State M_Write_slave_Data_byte(u8 byte_Data)
-{
-    I2C_Error_State local_err = I2C_Ok;
-    TWDR = byte_Data;
-    /* Clear Flag */
-    TWCR |= (1 << TWINT);
-    /* Polling on The Flag */
-    while (((TWCR >> TWINT) & 1) == 0)
-        ;
-    /* Check on ACK */
-    if ((TWSR & 0xF8) != I2C_MT_DATA_ACK)
-    {
-        local_err = I2C_MT_Data_Error;
-    }
-    return local_err;
-}
-
-I2C_Error_State M_Read_slave_Data_byte(u8 *byte_Data)
-{
-    I2C_Error_State local_err = I2C_Ok;
-    /* Clear Flag */
-    TWCR |= (1 << TWINT);
-    /* Polling on The Flag */
-    while (((TWCR >> TWINT) & 1) == 0)
-        ;
-    /* Check on ACK */
-    if ((TWSR & 0xF8) != I2C_MT_DATA_ACK)
-    {
-        local_err = I2C_MT_Data_Error;
+        // the address is 7  bit
+        TWDR = (SL_ADD << 1);
+        // make the first bit is 0 (write operation)
+        TWDR &= ~(1 << TWD0);
+        // clear start bit
+        TWCR &= ~(1 << TWSTA);
+        /* Clear Flag */
+        TWCR |= (1 << TWINT);
+        /* Polling on The Flag */
+        while (((TWCR >> TWINT) & 1) == 0)
+            ;
+        u8 status = TWSR & MODE_CHECK;
+        /* Check on ACK */
+        if (status == MT_SLA_W_ACK_MODE)
+        {
+            local_err = MASTER_TRANSMIT_ADDREES_ACK;
+        }
+        else if (status == MT_SLA_W_NACK_MODE)
+        {
+            local_err = MASTER_TRANSMIT_ADDREES_NACK;
+        }
+        else
+        {
+            local_err = MASTER_TRANSMIT_ADDREES_FAILED;
+        }
     }
     else
     {
-        *byte_Data = TWDR;
+        local_err = UNVALID_ADD;
     }
 
     return local_err;
 }
 
-void I2C_stop_condition(void)
+I2C_Error_State M_SEND_SLAVE_ADD_R(u8 SL_ADD)
+{
+    I2C_Error_State local_err = I2C_OK;
+    if (SL_ADD != NULL)
+    {
+        // the address is 7  bit
+        TWDR = (SL_ADD << 1);
+        // make the first bit is 0 (write operation)
+        TWDR &= ~(1 << TWD0);
+        // clear start bit
+        TWCR &= ~(1 << TWSTA);
+        /* Clear Flag */
+        TWCR |= (1 << TWINT);
+        /* Polling on The Flag */
+        while (((TWCR >> TWINT) & 1) == 0)
+            ;
+        u8 status = TWSR & MODE_CHECK;
+        /* Check on ACK */
+        if (status == MR_SLA_R_ACK_MODE)
+        {
+            local_err = MASTER_RECIVE_ADDREES_ACK;
+        }
+        else if (status == MR_SLA_R_NACK_MODE)
+        {
+            local_err = MASTER_RECIVE_ADDREES_NACK;
+        }
+        else
+        {
+            local_err = MASTER_RECIEVE_ADDREES_FAILED;
+        }
+    }
+    else
+    {
+        local_err = UNVALID_ADD;
+    }
+
+    return local_err;
+}
+
+I2C_Error_State M_SEND_SLAVE_DATA_W(u8 SEND_BYTE)
+{
+    I2C_Error_State local_err = I2C_OK;
+    // Write data
+    TWDR = SEND_BYTE;
+    /* Clear Flag */
+    TWCR |= (1 << TWINT);
+    /* Polling on The Flag */
+    while (((TWCR >> TWINT) & 1) == 0)
+        ;
+    u8 status = TWSR & MODE_CHECK;
+    /* Check on ACK */
+    if (status == MT_SLD_W_ACK_MODE)
+    {
+        local_err = MASTER_TRANSMIT_DATA_ACK;
+    }
+    else if (status == MT_SLD_W_NACK_MODE)
+    {
+        local_err = MASTER_TRANSMIT_DATA_NACK;
+    }
+    else
+    {
+        local_err = MASTER_TRANSMIT_DATA_FAILED;
+    }
+
+    return local_err;
+}
+
+I2C_Error_State M_SEND_SLAVE_DATA_R(u8 *SEND_BYTE)
+{
+    I2C_Error_State local_err = I2C_OK;
+    if (SEND_BYTE != NULL)
+    {
+
+        /* Clear Flag */
+        TWCR |= (1 << TWINT);
+        /* Polling on The Flag */
+        while (((TWCR >> TWINT) & 1) == 0)
+            ;
+        u8 status = TWSR & MODE_CHECK;
+        /* Check on ACK */
+        if (status == MR_SLD_W_ACK_MODE)
+        {
+            *SEND_BYTE = TWDR;
+            local_err = MASTER_RECIVE_DATA_ACK;
+        }
+        else if (status == MR_SLD_W_NACK_MODE)
+        {
+            local_err = MASTER_RECIVE_DATA_NACK;
+        }
+        else
+        {
+            local_err = MASTER_RECIEVE_DATA_FAILED;
+        }
+    }
+    else
+    {
+        local_err = UNVALID_DATA;
+    }
+
+    return local_err;
+}
+
+void STOP_CONDTION_SEND()
 {
     TWCR |= (1 << TWSTO);
+    /* Clear Flag */
     TWCR |= (1 << TWINT);
 }
 
-I2C_Error_State I2C_Slave_Receive(u8 *byte_Dat)
+I2C_Error_State Slave_Transmitt_data(u8 data)
 {
-    I2C_Error_State local_err = I2C_Ok;
-    TWCR |= (1 << TWEA); /*SET ACK*/
-    TWCR |= (1 << TWEN); /*ENABLE TWI*/
-    /* Clear Flag */
-    TWCR |= (1 << TWINT);
+    I2C_Error_State local_err = I2C_OK;
+    TWDR = data;
+    TWCR |= (1 << TWEA) | (1 << TWEN) | (1 << TWINT);
+    /* Polling on The Flag */
     while (((TWCR >> TWINT) & 1) == 0)
         ;
-    /* Check on ACK */
-    if (((TWSR & 0xF8) == 0x88) || ((TWSR & 0xF8) == 0x98))
+    u8 status = TWSR & MODE_CHECK;
+    if (SL_STOP_CONDITION_MODE == status)
     {
-        *byte_Dat = TWDR;
+        TWCR|=(1<<TWINT);
+        local_err = SLAVE_STOP_CONDITION_DETEC;
     }
-    if ((TWSR & 0xF8) == 0xA0) /* Check wether STOP/REPEATED START */
+    else if (SLR_DATA_ACK_MODE == status)
     {
-        TWCR |= (1 << TWINT); /* Clear interrupt flag & return -1 */
-        *byte_Dat = -1;
+        local_err = SLAVE_RECIVE_DATA_ACK;
     }
-    else
-        *byte_Dat = -2;
+    
     return local_err;
 }
