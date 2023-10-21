@@ -81,8 +81,11 @@
 #define ADCSRA  *((volatile u8 *)0x26)
 #define ADCH    *((volatile u8 *)0x25)
 #define ADCL    *((volatile u8 *)0x24)
+/*****************SPI registers***************/
+#define SPCR   *((volatile u8*)0x2D)
+#define SPSR   *((volatile u8*)0x2E)
+#define SPDR   *((volatile u8*)0x2F)
 /*****************status register***************/
-
 #define SREG_Ptr *((volatile u8 *)SREG_BASE)
 /**********************************/
 #define MCUCR_Ptr *((volatile u8 *MCUCR_BASE)
