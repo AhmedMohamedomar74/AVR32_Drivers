@@ -10,7 +10,9 @@
     "key_pad_config.h": "c",
     "config.h": "c",
     "lcd.h": "c",
-    "std.h": "c"
+    "std.h": "c",
+    "spi.h": "c",
+    "master.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "C_Cpp_Runner.msvcBatchPath": "",
@@ -68,5 +70,6 @@
   "C_Cpp_Runner.useUndefinedSanitizer": false,
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
-  "C_Cpp_Runner.useLinkTimeOptimization": false
+  "C_Cpp_Runner.useLinkTimeOptimization": false,
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

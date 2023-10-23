@@ -1,13 +1,11 @@
 #include "slave.h"
 
-void slave_init(u8 slave_add)
+void Slave_init_func()
 {
-    SLAVE_INIT(slave_add);
+    SPI_Slave_Init();
 }
 
-u8 slave_recieve()
+u8 Slave_recieve()
 {
-    u8 ret_val;
-    ret_val = I2C_Slave_Receive();
-    return ret_val;
-}    
+    return SPI_SlaveReceive();
+}

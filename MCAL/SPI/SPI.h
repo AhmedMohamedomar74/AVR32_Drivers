@@ -28,17 +28,11 @@ typedef enum
 
 typedef enum
 {
-    Slave = ~(1<<MSTR);
-    Master = (1<<MSTR);
-}SPI_Mode_t;
-
-typedef enum
-{
     SS=4,   //Selave Select
     MOSI,
     MISO,
     SCK,
-}SPI_PINs_t
+}SPI_PINs_t;
 
 void SPI_Master_Init();
 void SPI_Slave_Init();

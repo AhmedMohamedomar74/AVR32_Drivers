@@ -1,6 +1,4 @@
-#include "../../MCAL/I2C/I2C.h"
-#define SLAVE_ADD 0X7A
-
-void slave_init (u8 slave_add);
-
-u8 slave_recieve ();
+#include "../../MCAL/SPI/SPI.h"
+#include "../../MCAL/GPIO/GPIO.h"
+void Slave_init_func();
+u8 Slave_recieve();

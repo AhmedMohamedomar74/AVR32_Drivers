@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/AVR/AVR32_Drivers",
-      "program": "e:/AVR/AVR32_Drivers/build/Debug/outDebug",
+      "cwd": "e:/AVR/AVR32_Drivers/Application",
+      "program": "e:/AVR/AVR32_Drivers/Application/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

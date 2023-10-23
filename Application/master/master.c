@@ -1,14 +1,10 @@
 #include "master.h"
-
-void master_init()
+void master_init_fun()
 {
-    MASTER_INIT(MASTER_ADD);
+    SPI_Master_Init();
 }
 
-void master_send_slave(u8 slave_add)
+void master_transmitt(u8 Transnmitte_byte)
 {
-    START_CONDTION_SEND();
-    M_SEND_SLAVE_ADD_W(slave_add);
-    M_SEND_SLAVE_DATA_W(5);
-    STOP_CONDTION_SEND();
+    SPI_MasterTransmit(Transnmitte_byte);
 }

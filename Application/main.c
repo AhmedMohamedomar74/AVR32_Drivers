@@ -1,31 +1,29 @@
-#include "slave/slave.h"
 #include "master/master.h"
-#include "../MCAL/GPIO/GPIO.h"
-#include "../MCAL/ADC/ADC.h"
+#include "slave/slave.h"
+
 
 //slave app 
-int main(void)
+/*int main(void)
 {
 	u8 recieved_data;
-	slave_init(SLAVE_ADD);
-	GPIO_setPortDirection(PORTA,Out_Port_direction);
+	Slave_init_func();
 	while (1)
 	{
-		recieved_data = slave_recieve();
+		recieved_data = Slave_recieve();
 		GPIO_setPortValue(PORTA,recieved_data);
 	}
-}
+}*/
 // master app
 
-/*int main()
+int main()
 {
-	master_init();
-	while (1)
+	master_init_fun();
+	for (u8 i = 0; i >=0 ; i++)
 	{
-		master_send_slave(SLAVE_ADD);
+		master_transmitt(i);
+		_delay_ms(1000);
 	}
-	
-}*/
+}
 
 /*int main()
 {
